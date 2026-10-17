@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Consulta tu reparación | Factory System</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/componentes.css">
+  <link rel="stylesheet" href="../css/consulta.css">
+  <link rel="stylesheet" href="../css/responsive.css">
+</head>
+<body>
+  <header class="encabezado">
+    <a class="marca" href="consulta-cliente.html"><span class="marca__logo"></span>Factory System</a>
+
+    <button class="menu-boton" id="menu-boton" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="menu-principal">
+      <svg class="icono" aria-hidden="true"><use href="../img/iconos.svg#menu"/></svg>
+    </button>
+
+    <nav class="menu" id="menu-principal" aria-label="Principal">
+      <a href="consulta-cliente.html" aria-current="page">Consulta de cliente</a>
+      <a href="login-admin.html">Acceso administrador</a>
+    </nav>
+
+    <p class="portal"><svg class="icono" aria-hidden="true"><use href="../img/iconos.svg#escudo"/></svg>Portal de seguimiento</p>
+  </header>
+
+  <main class="principal principal--consulta">
+    <div class="contenedor-consulta">
+      <section class="tarjeta" aria-labelledby="titulo-consulta">
+        <div class="tarjeta__icono"><svg class="icono" aria-hidden="true"><use href="../img/iconos.svg#portatil"/></svg></div>
+        <h1 id="titulo-consulta">Consulta tu reparación</h1>
+        <p class="tarjeta__texto">Con tu cédula y número de orden puedes ver el estado de tu equipo, sin crear una cuenta.</p>
+
+        <form id="form-consulta" novalidate>
+          <p class="mensaje" id="mensaje-form" role="alert" hidden></p>
+
+          <div class="campo">
+            <label for="cedula">Cédula</label>
+            <div class="entrada">
+              <svg class="icono" aria-hidden="true"><use href="../img/iconos.svg#cedula"/></svg>
+              <input type="text" id="cedula" value="1.098.765.432" inputmode="numeric" autocomplete="off">
+            </div>
+            <p class="ayuda">Usa la cédula registrada al entregar el equipo.</p>
+            <p class="error" id="error-cedula"></p>
+          </div>
+
+          <div class="campo">
+            <label for="orden">Número de orden</label>
+            <div class="entrada">
+              <svg class="icono" aria-hidden="true"><use href="../img/iconos.svg#numeral"/></svg>
+              <input type="text" id="orden" value="123" inputmode="numeric" autocomplete="off">
+            </div>
+            <p class="ayuda">Lo encuentras en tu comprobante de ingreso.</p>
+            <p class="error" id="error-orden"></p>
+          </div>
+
+          <button class="boton" type="submit">
+            <svg class="icono" aria-hidden="true"><use href="../img/iconos.svg#buscar"/></svg>Consultar estado
+          </button>
+        </form>
+
+        <div class="nota">
+          <svg class="icono" aria-hidden="true"><use href="../img/iconos.svg#info"/></svg>
+          <p>¿No tienes tu número de orden? Solicítalo al taller donde dejaste tu equipo.</p>
+        </div>
+
+        <div class="tarjeta__pie tarjeta__pie--solo">
+          <a href="login-admin.html">Soy administrador · Iniciar sesión</a>
+        </div>
+      </section>
+
+      <p class="aviso">
+        <svg class="icono" aria-hidden="true"><use href="../img/iconos.svg#candado"/></svg>
+        <span class="solo-escritorio">Los datos del cliente se usan únicamente para el seguimiento y los avisos de su reparación.</span>
+        <span class="solo-movil">Tus datos se usan solo para esta reparación.</span>
+      </p>
+    </div>
+  </main>
+
+  <footer class="pie"><small>Factory System · Portal de seguimiento de equipos</small></footer>
+
+  <script type="module" src="../js/controllers/menuController.js"></script>
+  <script type="module" src="../js/controllers/consultaController.js"></script>
+</body>
+</html>

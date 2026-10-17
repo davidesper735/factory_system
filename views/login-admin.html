@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Acceso administrador | Factory System</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/componentes.css">
+  <link rel="stylesheet" href="../css/login.css">
+  <link rel="stylesheet" href="../css/responsive.css">
+</head>
+<body>
+  <header class="encabezado">
+    <a class="marca" href="login-admin.html"><span class="marca__logo"></span>Factory System</a>
+
+    <button class="menu-boton" id="menu-boton" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="menu-principal">
+      <svg class="icono" aria-hidden="true"><use href="../img/iconos.svg#menu"/></svg>
+    </button>
+
+    <nav class="menu" id="menu-principal" aria-label="Principal">
+      <a href="consulta-cliente.html">Consulta de cliente</a>
+      <a href="login-admin.html" aria-current="page">Acceso administrador</a>
+    </nav>
+
+    <p class="portal"><svg class="icono" aria-hidden="true"><use href="../img/iconos.svg#escudo"/></svg>Portal de seguimiento</p>
+  </header>
+
+  <main class="principal">
+    <div class="contenedor-login">
+      <section class="tarjeta" aria-labelledby="titulo-login">
+        <div class="tarjeta__icono"><svg class="icono" aria-hidden="true"><use href="../img/iconos.svg#escudo"/></svg></div>
+        <h1 id="titulo-login">Acceso administrador</h1>
+        <p class="tarjeta__texto">Ingresa para gestionar las órdenes, los equipos y el avance de las reparaciones.</p>
+
+        <form id="form-login" novalidate>
+          <p class="mensaje" id="mensaje-form" role="alert" hidden></p>
+
+          <div class="campo">
+            <label for="usuario">Usuario</label>
+            <div class="entrada">
+              <svg class="icono" aria-hidden="true"><use href="../img/iconos.svg#usuario"/></svg>
+              <input type="text" id="usuario" placeholder="Ingresa tu usuario" autocomplete="username">
+            </div>
+            <p class="error" id="error-usuario"></p>
+          </div>
+
+          <div class="campo">
+            <label for="clave">Contraseña</label>
+            <div class="entrada">
+              <svg class="icono" aria-hidden="true"><use href="../img/iconos.svg#candado"/></svg>
+              <input type="password" id="clave" placeholder="Ingresa tu contraseña" autocomplete="current-password">
+              <button class="entrada__ver" id="boton-ver-clave" type="button" aria-label="Mostrar contraseña">
+                <svg class="icono" aria-hidden="true"><use id="icono-ver-clave" href="../img/iconos.svg#ojo-tachado"/></svg>
+              </button>
+            </div>
+            <p class="error" id="error-clave"></p>
+          </div>
+
+          <div class="opciones">
+            <label class="recordar"><input type="checkbox" id="recordar"> Recordarme</label>
+            <a href="#">Olvidé mi contraseña</a>
+          </div>
+
+          <button class="boton" type="submit">
+            <svg class="icono" aria-hidden="true"><use href="../img/iconos.svg#entrar"/></svg>Iniciar sesión
+          </button>
+        </form>
+
+        <div class="tarjeta__pie">
+          <p>¿Quieres consultar tu reparación?</p>
+          <a href="consulta-cliente.html">Ir al acceso de cliente</a>
+        </div>
+      </section>
+
+      <p class="aviso"><svg class="icono" aria-hidden="true"><use href="../img/iconos.svg#candado"/></svg>Acceso reservado al personal autorizado.</p>
+    </div>
+  </main>
+
+  <footer class="pie"><small>RepairTrack · Gestión de reparaciones</small></footer>
+
+  <script type="module" src="../js/controllers/menuController.js"></script>
+  <script type="module" src="../js/controllers/loginController.js"></script>
+</body>
+</html>

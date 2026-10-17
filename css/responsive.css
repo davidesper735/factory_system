@@ -1,0 +1,97 @@
+/* Adaptación del diseño de escritorio (se usa max-width: de grande a pequeño) */
+
+/* Tableta: hasta 1023px */
+@media (max-width: 1023px) {
+  .encabezado { padding: 0 40px; }
+  .portal { display: none; }
+  .contenido { padding: 32px 40px 48px; }
+  .resumen { grid-template-columns: repeat(3, 1fr); }
+  .filtros { flex-wrap: wrap; }
+  .disposicion { grid-template-columns: 1fr; }
+  .barra-acciones { padding: 0 40px; }
+}
+
+/* Celular: hasta 767px */
+@media (max-width: 767px) {
+  .encabezado { display: flex; justify-content: space-between; height: 64px; padding: 0 16px; }
+  .marca { font-size: 18px; }
+  .menu-boton { display: grid; }
+
+  .menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    gap: 0;
+    padding: 8px 16px;
+    background: #fff;
+    border-bottom: 1px solid var(--borde);
+  }
+  .menu--abierto { display: flex; }
+  .menu a { padding: 12px 0; }
+
+  .principal { padding: 44px 16px 32px; }
+  .principal--consulta { padding-top: 36px; }
+  .tarjeta { padding: 24px; }
+  .tarjeta h1 { font-size: 26px; }
+  .pie { display: none; }
+  .solo-escritorio { display: none; }
+  .solo-movil { display: inline; }
+
+  /* Panel de órdenes: la tabla pasa a tarjetas */
+  .usuario { display: none; }
+  .contenido { padding: 16px 16px 72px; }
+  .encabezado-pagina { flex-direction: column; align-items: stretch; margin-bottom: 16px; }
+  .encabezado-pagina h1 { font-size: 26px; }
+  .boton--nueva { width: 100%; height: 46px; font-size: 15px; }
+  .resumen { display: none; }
+  .filtros { flex-direction: column; align-items: stretch; gap: 12px; }
+  .filtros .entrada--buscar { padding-left: 14px; }
+  .filtros__resumen { margin: 4px 0 0; font-size: 13px; }
+
+  .tabla-caja { overflow: visible; background: none; border: 0; }
+  .tabla, .tabla tbody { display: block; min-width: 0; }
+  .tabla thead, .tabla-pie { display: none; }
+  .barra-movil { display: block; }
+
+  .tabla .fila {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-areas: "orden estado" "cliente cliente" "equipo equipo" "ingreso costo" "tecnico tecnico" "acciones acciones";
+    align-items: center;
+    margin-bottom: 16px;
+    padding: 16px;
+    background: #fff;
+    border: 1px solid var(--borde);
+    border-radius: 8px;
+  }
+  .tabla .fila td { display: block; height: auto; padding: 0; border: 0; }
+  .tabla .fila--activa { background: #fff; border-color: var(--azul); }
+  .fila .c-orden { grid-area: orden; font-size: 14px; }
+  .fila .c-estado { grid-area: estado; justify-self: end; }
+  .fila .c-cliente { grid-area: cliente; margin-top: 12px; }
+  .fila .c-cliente .nombre { font-size: 18px; }
+  .fila .c-equipo { grid-area: equipo; margin-top: 4px; font-size: 14px; color: var(--gris); }
+  .fila .c-equipo .nombre, .fila .c-equipo .tipo { display: inline; }
+  .fila .c-equipo .tipo::before { content: " · "; }
+  .fila .c-ingreso { grid-area: ingreso; margin-top: 12px; font-size: 13px; color: var(--gris); }
+  .fila .c-costo { grid-area: costo; margin-top: 12px; font-size: 16px; font-weight: 400; text-align: right; }
+  .fila .c-tecnico { grid-area: tecnico; margin-top: 12px; font-size: 13px; color: var(--gris); }
+  .fila .c-tecnico::before { content: "Técnico: "; }
+  .tabla .fila .c-acciones { grid-area: acciones; display: flex; justify-content: space-around; margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--borde); }
+  .fila .accion { margin: 0; }
+  .fila-vacia td { display: block; }
+
+  /* Formulario de nueva orden */
+  .contenido--formulario { padding-bottom: 140px; }
+  .insignia--cabecera { display: none; }
+  .seccion { padding: 16px; }
+  .campos, .campos--2 { grid-template-columns: 1fr; }
+  .nota-pagina { margin-left: 4px; }
+  .barra-acciones { flex-direction: column; justify-content: center; gap: 10px; height: auto; padding: 12px 16px; }
+  .barra-acciones__texto { text-align: center; }
+  .barra-acciones__botones { display: flex; width: 100%; gap: 12px; }
+  .barra-acciones .boton { flex: 1; }
+}

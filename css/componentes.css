@@ -1,0 +1,74 @@
+/* Piezas reutilizables en todas las vistas: tarjeta, formulario, botón y mensajes */
+.principal { flex: 1; display: flex; justify-content: center; padding: 120px 16px 32px; }
+.tarjeta { padding: 32px; background: #fff; border: 1px solid var(--borde); border-radius: 8px; }
+.tarjeta__icono { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 8px; background: var(--azul-claro); color: var(--azul); }
+.tarjeta h1 { margin: 12px 0 8px; font-size: 30px; line-height: 1.2; font-weight: 700; }
+.tarjeta__texto { margin: 0 0 24px; font-size: 15px; line-height: 1.4; color: var(--gris); }
+.campo { margin-bottom: 16px; }
+.campo label { display: block; margin-bottom: 8px; font-size: 14px; font-weight: 600; }
+.entrada {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  height: 46px;
+  padding: 0 16px;
+  background: #fff;
+  border: 1px solid var(--borde);
+  border-radius: 8px;
+  color: var(--gris);
+}
+.entrada:focus-within { border-color: var(--azul); }
+.entrada input { flex: 1; min-width: 0; border: 0; outline: 0; background: transparent; font: inherit; font-size: 15px; color: var(--texto); }
+.entrada input::placeholder { color: var(--gris); }
+.entrada--error { border-color: var(--error); }
+.error { margin: 6px 0 0; font-size: 13px; color: var(--error); }
+.error:empty { display: none; }
+.mensaje { margin: 0 0 16px; padding: 10px 12px; border-radius: 8px; font-size: 14px; }
+.mensaje--error { background: #fdecea; color: var(--error); }
+.mensaje--exito { background: #e8f5ee; color: var(--exito); }
+.boton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  height: 44px;
+  border: 0;
+  border-radius: 6px;
+  background: var(--azul);
+  color: #fff;
+  font: inherit;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.boton:hover { background: var(--azul-oscuro); }
+.tarjeta__pie { margin-top: 24px; padding-top: 24px; border-top: 1px solid var(--borde); text-align: center; font-size: 13px; }
+.tarjeta__pie p { margin: 0 0 8px; color: var(--gris); }
+.tarjeta__pie a { font-weight: 600; }
+.aviso { display: flex; align-items: center; gap: 8px; margin: 16px 0 0 4px; font-size: 12px; color: var(--gris); }
+.aviso .icono { width: 14px; height: 14px; }
+
+/* Páginas internas: encabezado de página, insignias de estado y ventanas de confirmación */
+.contenido { width: 100%; padding: 32px 64px 48px; }
+.encabezado-pagina { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; margin-bottom: 24px; }
+.encabezado-pagina h1 { margin: 0 0 4px; font-size: 32px; line-height: 1.2; font-weight: 700; }
+.encabezado-pagina p { margin: 0; font-size: 15px; color: var(--gris); }
+.boton--secundario { background: #fff; color: var(--texto); border: 1px solid var(--borde); }
+.boton--secundario:hover { background: var(--fondo); }
+.boton--peligro { background: var(--error); }
+.boton--peligro:hover { background: #a93226; }
+.insignia { display: inline-block; padding: 5px 10px; border-radius: 6px; font-size: 13px; font-weight: 600; line-height: 1.2; }
+.insignia--recibido { background: #eceff4; color: #4b5563; }
+.insignia--diagnostico { background: var(--azul-claro); color: var(--azul); }
+.insignia--reparacion { background: #fdf0dc; color: #b45309; }
+.insignia--listo { background: #e6f5ec; color: var(--exito); }
+.insignia--entregado { background: #d9efe2; color: #17603b; }
+.dialogo { width: calc(100% - 32px); max-width: 460px; padding: 24px; border: 1px solid var(--borde); border-radius: 8px; color: var(--texto); font-family: var(--fuente); }
+.dialogo::backdrop { background: rgba(22, 33, 58, 0.45); }
+.dialogo h2 { margin: 0 0 16px; font-size: 20px; }
+.dialogo > p { margin: 0 0 20px; font-size: 14px; line-height: 1.4; color: var(--gris); }
+.dialogo .entrada { height: 42px; padding: 0 12px; }
+.dialogo .entrada select { font-size: 15px; }
+.acciones-dialogo { display: flex; justify-content: flex-end; gap: 12px; margin-top: 8px; }
+.acciones-dialogo .boton { width: auto; height: 42px; padding: 0 20px; font-size: 14px; }

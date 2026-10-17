@@ -1,0 +1,21 @@
+/* Vista: consulta de cliente */
+.principal--consulta { padding-top: 108px; }
+.contenedor-consulta { width: 100%; max-width: 480px; }
+
+.ayuda { margin: 8px 0 6px; font-size: 12px; color: var(--gris); }
+
+.nota {
+  display: flex;
+  gap: 12px;
+  margin-top: 24px;
+  padding: 12px;
+  border-radius: 8px;
+  background: var(--fondo);
+  font-size: 13px;
+  line-height: 1.3;
+  color: var(--gris);
+}
+.nota p { margin: 0; }
+.nota .icono { margin-top: 1px; color: var(--azul); }
+
+.tarjeta__pie--solo { font-size: 14px; }

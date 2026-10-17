@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Órdenes de reparación | Factory System</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/componentes.css">
+  <link rel="stylesheet" href="../css/panel.css">
+  <link rel="stylesheet" href="../css/responsive.css">
+</head>
+<body>
+  <header class="encabezado">
+    <a class="marca" href="ordenes.html"><span class="marca__logo"></span>Factory System</a>
+
+    <nav class="menu" aria-label="Principal">
+      <a href="ordenes.html" aria-current="page">Órdenes</a>
+      <a href="consulta-cliente.html">Consulta de cliente</a>
+    </nav>
+
+    <div class="usuario">
+      <span class="usuario__avatar" aria-hidden="true">AM</span>
+      <p><span class="usuario__nombre">Ana Martínez</span><span class="usuario__rol">Administradora</span></p>
+    </div>
+  </header>
+
+  <main class="contenido">
+    <div class="encabezado-pagina">
+      <div>
+        <h1>Órdenes de reparación</h1>
+        <p><span class="solo-escritorio">Controla el avance de tus reparaciones y mantén informados a tus clientes.</span><span class="solo-movil">Gestiona cada equipo, de ingreso a entrega.</span></p>
+      </div>
+      <a class="boton boton--nueva" href="nueva-orden.html">+ Nueva orden</a>
+    </div>
+
+    <section class="resumen" aria-label="Resumen por estado">
+      <div class="resumen__item">
+        <span class="insignia insignia--recibido">Recibido</span>
+        <p class="resumen__dato"><strong class="resumen__numero" data-contador="recibido">00</strong><span class="resumen__unidad">órdenes</span></p>
+      </div>
+      <div class="resumen__item">
+        <span class="insignia insignia--diagnostico">En diagnóstico</span>
+        <p class="resumen__dato"><strong class="resumen__numero" data-contador="diagnostico">00</strong><span class="resumen__unidad">órdenes</span></p>
+      </div>
+      <div class="resumen__item">
+        <span class="insignia insignia--reparacion">En reparación</span>
+        <p class="resumen__dato"><strong class="resumen__numero" data-contador="reparacion">00</strong><span class="resumen__unidad">órdenes</span></p>
+      </div>
+      <div class="resumen__item">
+        <span class="insignia insignia--listo">Listo</span>
+        <p class="resumen__dato"><strong class="resumen__numero" data-contador="listo">00</strong><span class="resumen__unidad">órdenes</span></p>
+      </div>
+      <div class="resumen__item">
+        <span class="insignia insignia--entregado">Entregado</span>
+        <p class="resumen__dato"><strong class="resumen__numero" data-contador="entregado">00</strong><span class="resumen__unidad">órdenes</span></p>
+      </div>
+    </section>
+
+    <p class="mensaje" id="mensaje-form" role="status" hidden></p>
+
+    <div class="filtros">
+      <div class="entrada entrada--buscar">
+        <input type="search" id="buscador" placeholder="Buscar por orden, cliente o cédula" aria-label="Buscar órdenes" autocomplete="off">
+      </div>
+      <div class="entrada entrada--estado">
+        <select id="filtro-estado" aria-label="Filtrar por estado">
+          <option value="todos">Todos los estados</option>
+          <option value="recibido">Recibido</option>
+          <option value="diagnostico">En diagnóstico</option>
+          <option value="reparacion">En reparación</option>
+          <option value="listo">Listo</option>
+          <option value="entregado">Entregado</option>
+        </select>
+      </div>
+      <p class="filtros__resumen">
+        <span data-visibles>6</span> órdenes · <span class="solo-escritorio">Actualizado hoy, 10:35</span><span class="solo-movil">Todas las reparaciones</span>
+      </p>
+    </div>
+
+    <div class="tabla-caja">
+      <table class="tabla">
+        <thead>
+          <tr>
+            <th scope="col">Orden</th><th scope="col">Cliente</th><th scope="col">Equipo</th><th scope="col">Estado</th>
+            <th scope="col">Ingreso</th><th scope="col">Costo</th><th scope="col">Técnico</th><th scope="col">Acciones</th>
+          </tr>
+        </thead>
+        <tbody id="cuerpo-tabla">
+        <tr class="fila fila--activa" data-estado="reparacion">
+          <td class="c-orden">#123</td>
+          <td class="c-cliente"><span class="nombre">Juan Pérez</span><span class="cedula solo-escritorio">1.098.765.432</span></td>
+          <td class="c-equipo"><span class="nombre">HP Pavilion 15</span><span class="tipo">Portátil</span></td>
+          <td class="c-estado"><span class="insignia insignia--reparacion">En reparación</span></td>
+          <td class="c-ingreso">06 oct. 2026</td>
+          <td class="c-costo">$120.000</td>
+          <td class="c-tecnico">Carlos Ruiz</td>
+          <td class="c-acciones">
+          <button type="button" class="accion accion--editar" data-accion="editar">Editar</button>
+          <button type="button" class="accion accion--eliminar" data-accion="eliminar">Eliminar</button>
+          <button type="button" class="accion accion--aviso" data-accion="aviso"><svg class="icono" aria-hidden="true"><use href="../img/iconos.svg#whatsapp"/></svg>Enviar aviso</button>
+          </td>
+        </tr>
+        <tr class="fila" data-estado="recibido">
+          <td class="c-orden">#124</td>
+          <td class="c-cliente"><span class="nombre">Laura Gómez</span><span class="cedula solo-escritorio">1.012.345.678</span></td>
+          <td class="c-equipo"><span class="nombre">Lenovo IdeaPad 3</span><span class="tipo">Portátil</span></td>
+          <td class="c-estado"><span class="insignia insignia--recibido">Recibido</span></td>
+          <td class="c-ingreso">08 oct. 2026</td>
+          <td class="c-costo">$0</td>
+          <td class="c-tecnico">Ana Torres</td>
+          <td class="c-acciones">
+          <button type="button" class="accion accion--editar" data-accion="editar">Editar</button>
+          <button type="button" class="accion accion--eliminar" data-accion="eliminar">Eliminar</button>
+          <button type="button" class="accion accion--aviso" data-accion="aviso"><svg class="icono" aria-hidden="true"><use href="../img/iconos.svg#whatsapp"/></svg>Enviar aviso</button>
+          </td>
+        </tr>
+        <tr class="fila" data-estado="diagnostico">
+          <td class="c-orden">#125</td>
+          <td class="c-cliente"><span class="nombre">Andrés López</span><span class="cedula solo-escritorio">80.123.456</span></td>
+          <td class="c-equipo"><span class="nombre">Dell OptiPlex 7090</span><span class="tipo">Escritorio</span></td>
+          <td class="c-estado"><span class="insignia insignia--diagnostico">En diagnóstico</span></td>
+          <td class="c-ingreso">07 oct. 2026</td>
+          <td class="c-costo">$60.000</td>
+          <td class="c-tecnico">Carlos Ruiz</td>
+          <td class="c-acciones">
+          <button type="button" class="accion accion--editar" data-accion="editar">Editar</button>
+          <button type="button" class="accion accion--eliminar" data-accion="eliminar">Eliminar</button>
+          <button type="button" class="accion accion--aviso" data-accion="aviso"><svg class="icono" aria-hidden="true"><use href="../img/iconos.svg#whatsapp"/></svg>Enviar aviso</button>
+          </td>
+        </tr>
+        <tr class="fila" data-estado="listo">
+          <td class="c-orden">#126</td>
+          <td class="c-cliente"><span class="nombre">María Rodríguez</span><span class="cedula solo-escritorio">52.456.789</span></td>
+          <td class="c-equipo"><span class="nombre">ASUS VivoBook 14</span><span class="tipo">Portátil</span></td>
+          <td class="c-estado"><span class="insignia insignia--listo">Listo</span></td>
+          <td class="c-ingreso">05 oct. 2026</td>
+          <td class="c-costo">$180.000</td>
+          <td class="c-tecnico">Ana Torres</td>
+          <td class="c-acciones">
+          <button type="button" class="accion accion--editar" data-accion="editar">Editar</button>
+          <button type="button" class="accion accion--eliminar" data-accion="eliminar">Eliminar</button>
+          <button type="button" class="accion accion--aviso" data-accion="aviso"><svg class="icono" aria-hidden="true"><use href="../img/iconos.svg#whatsapp"/></svg>Enviar aviso</button>
+          </td>
+        </tr>
+        <tr class="fila" data-estado="entregado">
+          <td class="c-orden">#127</td>
+          <td class="c-cliente"><span class="nombre">Diego Ramírez</span><span class="cedula solo-escritorio">1.023.456.789</span></td>
+          <td class="c-equipo"><span class="nombre">Acer Aspire 5</span><span class="tipo">Portátil</span></td>
+          <td class="c-estado"><span class="insignia insignia--entregado">Entregado</span></td>
+          <td class="c-ingreso">02 oct. 2026</td>
+          <td class="c-costo">$95.000</td>
+          <td class="c-tecnico">Luis Moreno</td>
+          <td class="c-acciones">
+          <button type="button" class="accion accion--editar" data-accion="editar">Editar</button>
+          <button type="button" class="accion accion--eliminar" data-accion="eliminar">Eliminar</button>
+          <button type="button" class="accion accion--aviso" data-accion="aviso"><svg class="icono" aria-hidden="true"><use href="../img/iconos.svg#whatsapp"/></svg>Enviar aviso</button>
+          </td>
+        </tr>
+        <tr class="fila" data-estado="recibido">
+          <td class="c-orden">#128</td>
+          <td class="c-cliente"><span class="nombre">Sofía Herrera</span><span class="cedula solo-escritorio">1.045.678.901</span></td>
+          <td class="c-equipo"><span class="nombre">Apple MacBook Air M1</span><span class="tipo">Portátil</span></td>
+          <td class="c-estado"><span class="insignia insignia--recibido">Recibido</span></td>
+          <td class="c-ingreso">08 oct. 2026</td>
+          <td class="c-costo">$0</td>
+          <td class="c-tecnico">Luis Moreno</td>
+          <td class="c-acciones">
+          <button type="button" class="accion accion--editar" data-accion="editar">Editar</button>
+          <button type="button" class="accion accion--eliminar" data-accion="eliminar">Eliminar</button>
+          <button type="button" class="accion accion--aviso" data-accion="aviso"><svg class="icono" aria-hidden="true"><use href="../img/iconos.svg#whatsapp"/></svg>Enviar aviso</button>
+          </td>
+        </tr>
+          <tr class="fila-vacia" id="fila-vacia" hidden><td colspan="8">No hay órdenes que coincidan con la búsqueda.</td></tr>
+        </tbody>
+      </table>
+      <div class="tabla-pie">
+        <span>Mostrando 1–<span data-visibles>6</span> de <span data-total>6</span> órdenes</span>
+        <span>Página 1 de 1</span>
+      </div>
+    </div>
+  </main>
+
+  <p class="barra-movil">Desliza para ver las <span data-total>6</span> órdenes</p>
+
+  <dialog class="dialogo" id="dialogo-confirmar" aria-labelledby="confirmar-titulo">
+    <h2 id="confirmar-titulo"></h2>
+    <p id="confirmar-texto"></p>
+    <div class="acciones-dialogo">
+      <button type="button" class="boton boton--secundario" id="confirmar-cancelar">Cancelar</button>
+      <button type="button" class="boton" id="confirmar-aceptar">Confirmar</button>
+    </div>
+  </dialog>
+
+  <script type="module" src="../js/controllers/panelController.js"></script>
+</body>
+</html>

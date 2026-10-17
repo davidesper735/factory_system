@@ -1,0 +1,38 @@
+/* Vista: panel de órdenes (diseño base: escritorio) */
+.boton--nueva { width: auto; height: 42px; padding: 0 20px; font-size: 14px; }
+.resumen { display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; margin-bottom: 24px; }
+.resumen__item { display: flex; flex-direction: column; justify-content: space-between; align-items: flex-start; height: 116px; padding: 18px; background: #fff; border: 1px solid var(--borde); border-radius: 8px; }
+.resumen__dato { display: flex; justify-content: space-between; align-items: flex-end; width: 100%; }
+.resumen__numero { font-size: 30px; font-weight: 700; line-height: 1; }
+.resumen__unidad { font-size: 12px; color: var(--gris); }
+.filtros { display: flex; align-items: center; gap: 12px; margin-bottom: 24px; }
+.filtros .entrada { height: 44px; padding: 0 14px; }
+.filtros .entrada input, .entrada select { flex: 1; min-width: 0; border: 0; outline: 0; background: transparent; font: inherit; font-size: 14px; color: var(--texto); }
+.filtros .entrada--buscar { flex: 0 1 530px; padding-left: 43px; }
+.filtros .entrada--estado { flex: 0 0 205px; }
+.filtros__resumen { margin: 0 0 0 auto; font-size: 14px; color: var(--gris); }
+.tabla-caja { overflow-x: auto; background: #fff; border: 1px solid var(--borde); border-radius: 8px; }
+.tabla { width: 100%; min-width: 1000px; border-collapse: collapse; table-layout: fixed; font-size: 14px; }
+.tabla th { height: 45px; padding: 0; text-align: left; font-size: 13px; font-weight: 600; color: var(--gris); background: #f9fafc; border-bottom: 1px solid var(--borde); }
+.tabla td { height: 88px; padding: 0; border-bottom: 1px solid var(--borde); }
+.tabla th:first-child, .tabla td:first-child { padding-left: 16px; }
+.tabla th:nth-child(1) { width: 93px; }
+.tabla th:nth-child(2) { width: 202px; }
+.tabla th:nth-child(3) { width: 192px; }
+.tabla th:nth-child(4) { width: 162px; }
+.tabla th:nth-child(5) { width: 117px; }
+.tabla th:nth-child(6), .tabla th:nth-child(7) { width: 112px; }
+.tabla .c-acciones { padding-left: 22px; white-space: nowrap; }
+.fila { cursor: pointer; }
+.fila:hover { background: #f4f7fc; }
+.fila--activa, .fila--activa:hover { background: #eef3fb; }
+.fila[hidden] { display: none; }
+.fila .nombre, .fila .cedula, .fila .tipo { display: block; line-height: 19px; }
+.c-orden { font-weight: 700; color: var(--azul); }
+.c-costo { font-weight: 600; }
+.accion { display: inline-flex; align-items: center; gap: 6px; margin-right: 16px; padding: 0; border: 0; background: none; font: inherit; font-size: 13px; cursor: pointer; }
+.accion--editar { color: var(--azul); }
+.accion--eliminar { color: var(--gris); }
+.accion--aviso { color: var(--exito); font-weight: 600; }
+.tabla-pie { display: flex; justify-content: space-between; padding: 16px; font-size: 13px; color: var(--gris); }
+.barra-movil { display: none; position: fixed; left: 0; right: 0; bottom: 0; margin: 0; padding: 14px; background: #fff; border-top: 1px solid var(--borde); text-align: center; font-size: 12px; color: var(--gris); }
