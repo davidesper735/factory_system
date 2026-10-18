@@ -51,3 +51,13 @@
 .foto span { display: block; margin-top: 10px; font-size: 11px; color: var(--gris); }
 .fotos-resumen { margin: 12px 0 16px; font-size: 12px; color: var(--gris); }
 .boton--subir { display: inline-flex; width: auto; height: 42px; padding: 0 20px; font-size: 14px; }
+
+/* Campos con error y aviso resumen */
+.formulario-orden .entrada--error { background: #fff1f2; }
+.formulario-orden .error { margin-top: 8px; font-size: 12px; }
+.alerta { display: flex; gap: 10px; margin-bottom: 24px; padding: 16px; background: #fdecee; border: 1px solid #f0b4b9; border-radius: 8px; color: var(--error); }
+.alerta[hidden] { display: none; }
+.alerta__titulo { margin: 0 0 6px; font-size: 14px; }
+.alerta__lista { margin: 0; padding: 0; list-style: none; font-size: 12px; line-height: 1.6; }
+.alerta__lista li { display: inline; }
+.alerta__lista li + li::before { content: " · "; }

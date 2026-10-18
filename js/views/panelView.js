@@ -1,5 +1,6 @@
 // VISTA (JS): lee y modifica el HTML del panel. Sin reglas de negocio.
-export { mostrarMensaje, abrirConfirmacion, cerrarConfirmacion } from "./formularioView.js";
+import { abrirConfirmacion, mostrarError } from "./formularioView.js";
+export { mostrarMensaje, cerrarConfirmacion } from "./formularioView.js";
 
 const porId = (id) => document.getElementById(id);
 
@@ -11,6 +12,10 @@ export const elementos = {
   dialogoConfirmar: porId("dialogo-confirmar"),
   confirmarAceptar: porId("confirmar-aceptar"),
   confirmarCancelar: porId("confirmar-cancelar"),
+  dialogoAviso: porId("dialogo-aviso"),
+  avisoMensaje: porId("aviso-mensaje"),
+  avisoEnviar: porId("aviso-enviar"),
+  avisoCancelar: porId("aviso-cancelar"),
 };
 
 // ----- Filas de la tabla -----
@@ -30,9 +35,19 @@ export function mostrarFila(fila, visible) {
   fila.hidden = !visible;
 }
 export function leerFila(fila) {
+  const texto = (selector) => fila.querySelector(selector).textContent;
   return {
-    numero: fila.querySelector(".c-orden").textContent,
-    cliente: fila.querySelector(".c-cliente .nombre").textContent,
+    numero: texto(".c-orden"),
+    cliente: texto(".c-cliente .nombre"),
+    cedula: texto(".c-cliente .cedula"),
+    equipo: texto(".c-equipo .nombre"),
+    tipo: texto(".c-equipo .tipo"),
+    ingreso: texto(".c-ingreso"),
+    costo: texto(".c-costo"),
+    estadoClave: fila.dataset.estado,
+    estadoTexto: texto(".c-estado .insignia"),
+    telefono: fila.dataset.telefono || "",
+    trabajo: fila.dataset.trabajo || "la reparación",
   };
 }
 export function seleccionarFila(fila) {
@@ -53,4 +68,49 @@ export function actualizarResumen(visibles) {
     el.textContent = String(cantidad).padStart(2, "0");
   });
   elementos.filaVacia.hidden = visibles > 0;
+}
+
+// ----- Ventana de confirmación con el resumen de la orden -----
+export function abrirConfirmacionOrden(orden, titulo, texto, textoBoton, esPeligro) {
+  porId("confirmar-cliente").textContent = orden.cliente;
+  porId("confirmar-equipo").textContent = orden.equipo + " · " + orden.tipo;
+  porId("confirmar-detalle").textContent = "Cédula " + orden.cedula + " · Ingreso " + orden.ingreso;
+  porId("confirmar-estado").textContent = orden.estadoTexto;
+  porId("confirmar-estado").className = "insignia insignia--" + orden.estadoClave;
+  porId("confirmar-costo").textContent = orden.costo;
+
+  porId("confirmar-icono").className = "dialogo__icono dialogo__icono--" + (esPeligro ? "peligro" : "aviso");
+  porId("confirmar-icono-svg").setAttribute("href", "../img/iconos.svg#" + (esPeligro ? "papelera" : "whatsapp"));
+
+  abrirConfirmacion(titulo, texto, textoBoton, esPeligro);
+}
+
+// ----- Ventana de aviso por WhatsApp -----
+export function abrirAviso(orden, mensaje) {
+  porId("aviso-cliente").textContent = orden.cliente;
+  porId("aviso-telefono").textContent = orden.telefono;
+  porId("aviso-orden").textContent = "Orden " + orden.numero;
+  porId("aviso-estado").textContent = orden.estadoTexto;
+  porId("aviso-estado").className = "insignia insignia--" + orden.estadoClave;
+  porId("aviso-ayuda").textContent = "Mensaje sugerido según el estado actual: " + orden.estadoTexto + ".";
+  elementos.avisoMensaje.value = mensaje;
+  mostrarError("aviso-mensaje", "");
+  porId("aviso-resultado").textContent = "";
+  elementos.avisoEnviar.disabled = false;
+  elementos.avisoCancelar.textContent = "Cancelar";
+  elementos.dialogoAviso.showModal();
+}
+export function obtenerMensajeAviso() {
+  return elementos.avisoMensaje.value;
+}
+export function mostrarErrorAviso(texto) {
+  mostrarError("aviso-mensaje", texto);
+}
+export function mostrarResultadoAviso(texto) {
+  porId("aviso-resultado").textContent = texto;
+  elementos.avisoEnviar.disabled = true;
+  elementos.avisoCancelar.textContent = "Cerrar";
+}
+export function cerrarAviso() {
+  elementos.dialogoAviso.close();
 }

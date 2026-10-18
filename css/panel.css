@@ -36,3 +36,42 @@
 .accion--aviso { color: var(--exito); font-weight: 600; }
 .tabla-pie { display: flex; justify-content: space-between; padding: 16px; font-size: 13px; color: var(--gris); }
 .barra-movil { display: none; position: fixed; left: 0; right: 0; bottom: 0; margin: 0; padding: 14px; background: #fff; border-top: 1px solid var(--borde); text-align: center; font-size: 12px; color: var(--gris); }
+
+/* Ventana de confirmación con resumen de la orden */
+.dialogo--orden { max-width: 520px; padding: 28px; border: 0; border-radius: 12px; }
+.dialogo--orden h2 { margin: 0 0 8px; font-size: 22px; }
+.dialogo__icono { display: grid; place-items: center; width: 44px; height: 44px; margin-bottom: 24px; border-radius: 8px; }
+.dialogo__icono--peligro { background: #fdecee; color: var(--error); }
+.dialogo__icono--aviso { background: #e6f5ec; color: var(--exito); }
+.resumen-orden { padding: 16px; background: #f9fafc; border: 1px solid var(--borde); border-radius: 8px; }
+.resumen-orden p { margin: 0; }
+.resumen-orden__cliente { margin-bottom: 8px; font-size: 17px; }
+.resumen-orden__equipo { margin-bottom: 8px; font-size: 14px; }
+.resumen-orden__detalle { margin-bottom: 10px; font-size: 12px; color: var(--gris); }
+.resumen-orden__pie { display: flex; justify-content: space-between; align-items: center; }
+.resumen-orden__costo { font-size: 15px; }
+.dialogo--orden .acciones-dialogo { margin-top: 20px; padding-top: 20px; border-top: 1px solid var(--borde); }
+
+/* Ventana de aviso por WhatsApp */
+.dialogo--aviso { max-width: 600px; padding: 28px; border: 0; border-radius: 12px; }
+.dialogo--aviso h2 { margin: 0 0 6px; font-size: 26px; }
+.dialogo--aviso .dialogo__icono { width: 42px; height: 42px; margin-bottom: 20px; }
+.dialogo--aviso > .dialogo__subtitulo { margin: 0 0 20px; font-size: 13px; }
+.dialogo--aviso > .aviso-ayuda { margin: 12px 0 16px; font-size: 12px; }
+.dialogo--aviso .campo { margin-bottom: 0; }
+.dialogo--aviso .campo label { margin-bottom: 8px; font-size: 13px; font-weight: 400; }
+.dialogo--aviso .entrada { height: auto; align-items: flex-start; padding: 10px 12px; border-radius: 8px; }
+.dialogo--aviso textarea { flex: 1; width: 100%; min-height: 66px; border: 0; outline: 0; resize: vertical; background: transparent; font: inherit; font-size: 14px; line-height: 1.4; color: var(--texto); }
+.resumen-aviso { margin-bottom: 20px; padding: 14px; background: #f9fafc; border: 1px solid var(--borde); border-radius: 8px; }
+.resumen-aviso__datos { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.resumen-aviso__etiqueta { display: block; margin-bottom: 4px; font-size: 12px; color: var(--gris); }
+.resumen-aviso strong { font-size: 15px; font-weight: 500; }
+.resumen-aviso__pie { display: flex; justify-content: space-between; align-items: center; margin-top: 12px; }
+.resumen-aviso__pie strong { font-size: 14px; font-weight: 700; }
+.boton--whatsapp { background: #168a45; }
+.boton--whatsapp:hover { background: #11703a; }
+.boton:disabled { opacity: 0.6; cursor: not-allowed; }
+.resultado-aviso { margin-top: 20px; padding-top: 20px; border-top: 1px solid var(--borde); }
+.resultado-aviso__titulo { margin: 0; font-size: 11px; font-weight: 700; letter-spacing: 0.3px; text-transform: uppercase; color: var(--gris); }
+.resultado-aviso__texto { margin: 12px 0 0; padding: 12px; border-radius: 8px; background: #e6f5ec; color: var(--exito); font-size: 13px; }
+.resultado-aviso__texto:empty { display: none; }

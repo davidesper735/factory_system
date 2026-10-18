@@ -87,7 +87,7 @@
           </tr>
         </thead>
         <tbody id="cuerpo-tabla">
-        <tr class="fila fila--activa" data-estado="reparacion">
+        <tr class="fila fila--activa" data-estado="reparacion" data-telefono="+57 300 123 4567" data-trabajo="la limpieza interna y el cambio de pasta térmica">
           <td class="c-orden">#123</td>
           <td class="c-cliente"><span class="nombre">Juan Pérez</span><span class="cedula solo-escritorio">1.098.765.432</span></td>
           <td class="c-equipo"><span class="nombre">HP Pavilion 15</span><span class="tipo">Portátil</span></td>
@@ -101,7 +101,7 @@
           <button type="button" class="accion accion--aviso" data-accion="aviso"><svg class="icono" aria-hidden="true"><use href="../img/iconos.svg#whatsapp"/></svg>Enviar aviso</button>
           </td>
         </tr>
-        <tr class="fila" data-estado="recibido">
+        <tr class="fila" data-estado="recibido" data-telefono="+57 310 555 0124">
           <td class="c-orden">#124</td>
           <td class="c-cliente"><span class="nombre">Laura Gómez</span><span class="cedula solo-escritorio">1.012.345.678</span></td>
           <td class="c-equipo"><span class="nombre">Lenovo IdeaPad 3</span><span class="tipo">Portátil</span></td>
@@ -115,7 +115,7 @@
           <button type="button" class="accion accion--aviso" data-accion="aviso"><svg class="icono" aria-hidden="true"><use href="../img/iconos.svg#whatsapp"/></svg>Enviar aviso</button>
           </td>
         </tr>
-        <tr class="fila" data-estado="diagnostico">
+        <tr class="fila" data-estado="diagnostico" data-telefono="+57 311 555 0125">
           <td class="c-orden">#125</td>
           <td class="c-cliente"><span class="nombre">Andrés López</span><span class="cedula solo-escritorio">80.123.456</span></td>
           <td class="c-equipo"><span class="nombre">Dell OptiPlex 7090</span><span class="tipo">Escritorio</span></td>
@@ -129,7 +129,7 @@
           <button type="button" class="accion accion--aviso" data-accion="aviso"><svg class="icono" aria-hidden="true"><use href="../img/iconos.svg#whatsapp"/></svg>Enviar aviso</button>
           </td>
         </tr>
-        <tr class="fila" data-estado="listo">
+        <tr class="fila" data-estado="listo" data-telefono="+57 312 555 0126">
           <td class="c-orden">#126</td>
           <td class="c-cliente"><span class="nombre">María Rodríguez</span><span class="cedula solo-escritorio">52.456.789</span></td>
           <td class="c-equipo"><span class="nombre">ASUS VivoBook 14</span><span class="tipo">Portátil</span></td>
@@ -143,7 +143,7 @@
           <button type="button" class="accion accion--aviso" data-accion="aviso"><svg class="icono" aria-hidden="true"><use href="../img/iconos.svg#whatsapp"/></svg>Enviar aviso</button>
           </td>
         </tr>
-        <tr class="fila" data-estado="entregado">
+        <tr class="fila" data-estado="entregado" data-telefono="+57 313 555 0127">
           <td class="c-orden">#127</td>
           <td class="c-cliente"><span class="nombre">Diego Ramírez</span><span class="cedula solo-escritorio">1.023.456.789</span></td>
           <td class="c-equipo"><span class="nombre">Acer Aspire 5</span><span class="tipo">Portátil</span></td>
@@ -157,7 +157,7 @@
           <button type="button" class="accion accion--aviso" data-accion="aviso"><svg class="icono" aria-hidden="true"><use href="../img/iconos.svg#whatsapp"/></svg>Enviar aviso</button>
           </td>
         </tr>
-        <tr class="fila" data-estado="recibido">
+        <tr class="fila" data-estado="recibido" data-telefono="+57 314 555 0128">
           <td class="c-orden">#128</td>
           <td class="c-cliente"><span class="nombre">Sofía Herrera</span><span class="cedula solo-escritorio">1.045.678.901</span></td>
           <td class="c-equipo"><span class="nombre">Apple MacBook Air M1</span><span class="tipo">Portátil</span></td>
@@ -183,12 +183,60 @@
 
   <p class="barra-movil">Desliza para ver las <span data-total>6</span> órdenes</p>
 
-  <dialog class="dialogo" id="dialogo-confirmar" aria-labelledby="confirmar-titulo">
+  <dialog class="dialogo dialogo--orden" id="dialogo-confirmar" aria-labelledby="confirmar-titulo">
+    <div class="dialogo__icono dialogo__icono--peligro" id="confirmar-icono">
+      <svg class="icono" aria-hidden="true"><use id="confirmar-icono-svg" href="../img/iconos.svg#papelera"/></svg>
+    </div>
     <h2 id="confirmar-titulo"></h2>
     <p id="confirmar-texto"></p>
+
+    <div class="resumen-orden">
+      <p class="resumen-orden__cliente" id="confirmar-cliente"></p>
+      <p class="resumen-orden__equipo" id="confirmar-equipo"></p>
+      <p class="resumen-orden__detalle" id="confirmar-detalle"></p>
+      <div class="resumen-orden__pie">
+        <span class="insignia" id="confirmar-estado"></span>
+        <span class="resumen-orden__costo" id="confirmar-costo"></span>
+      </div>
+    </div>
+
     <div class="acciones-dialogo">
       <button type="button" class="boton boton--secundario" id="confirmar-cancelar">Cancelar</button>
       <button type="button" class="boton" id="confirmar-aceptar">Confirmar</button>
+    </div>
+  </dialog>
+
+  <dialog class="dialogo dialogo--aviso" id="dialogo-aviso" aria-labelledby="aviso-titulo">
+    <div class="dialogo__icono dialogo__icono--aviso"><svg class="icono" aria-hidden="true"><use href="../img/iconos.svg#whatsapp"/></svg></div>
+    <h2 id="aviso-titulo">Enviar aviso a WhatsApp</h2>
+    <p class="dialogo__subtitulo">Revisa el mensaje antes de enviarlo al cliente.</p>
+
+    <div class="resumen-aviso">
+      <div class="resumen-aviso__datos">
+        <div><span class="resumen-aviso__etiqueta">Cliente</span><strong id="aviso-cliente"></strong></div>
+        <div><span class="resumen-aviso__etiqueta">Teléfono</span><strong id="aviso-telefono"></strong></div>
+      </div>
+      <div class="resumen-aviso__pie">
+        <strong id="aviso-orden"></strong>
+        <span class="insignia" id="aviso-estado"></span>
+      </div>
+    </div>
+
+    <div class="campo">
+      <label for="aviso-mensaje">Mensaje editable</label>
+      <div class="entrada"><textarea id="aviso-mensaje" rows="3"></textarea></div>
+      <p class="error" id="error-aviso-mensaje"></p>
+    </div>
+    <p class="aviso-ayuda" id="aviso-ayuda"></p>
+
+    <div class="acciones-dialogo">
+      <button type="button" class="boton boton--whatsapp" id="aviso-enviar"><svg class="icono" aria-hidden="true"><use href="../img/iconos.svg#whatsapp"/></svg>Enviar por WhatsApp</button>
+      <button type="button" class="boton boton--secundario" id="aviso-cancelar">Cancelar</button>
+    </div>
+
+    <div class="resultado-aviso">
+      <p class="resultado-aviso__titulo">Ejemplo de resultado después del envío</p>
+      <p class="resultado-aviso__texto" id="aviso-resultado" role="status"></p>
     </div>
   </dialog>
 

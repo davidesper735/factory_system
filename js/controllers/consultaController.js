@@ -17,7 +17,7 @@ function enviarFormulario(evento) {
     vista.mostrarMensaje("No encontramos una orden con esos datos. Revisa la cédula y el número de orden.", "error");
     return;
   }
-  vista.mostrarMensaje("Orden #" + orden.numero + " · " + orden.equipo + ": " + orden.estado + ".", "exito");
+  window.location.href = "estado-equipo.html"; // muestra el estado del equipo
 }
 
 vista.elementos.formulario.addEventListener("submit", enviarFormulario);

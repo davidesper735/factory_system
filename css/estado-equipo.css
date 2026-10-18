@@ -1,0 +1,47 @@
+/* Vista: estado del equipo (resultado de la consulta). Diseño base: escritorio */
+.migas { margin: 0 0 8px; font-size: 12px; color: var(--gris); }
+.migas a { color: var(--gris); }
+
+.disposicion-estado { display: grid; grid-template-columns: 1fr 360px; gap: 24px; align-items: start; }
+.tarjeta-estado { padding: 20px; background: #fff; border: 1px solid var(--borde); border-radius: 8px; }
+
+/* Resumen de la orden */
+.orden__cabecera { display: flex; justify-content: space-between; align-items: center; }
+.orden__numero { margin: 0; font-size: 15px; font-weight: 600; color: var(--azul); }
+.orden__equipo { margin: 16px 0 4px; font-size: 26px; font-weight: 700; line-height: 1.2; }
+.orden__detalle { margin: 0; font-size: 13px; color: var(--gris); }
+.orden__datos { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--borde); }
+.dato__etiqueta { display: block; margin-bottom: 6px; font-size: 12px; color: var(--gris); }
+.dato__valor { font-size: 15px; font-weight: 700; }
+.orden__nota { margin: 16px 0 0; font-size: 13px; color: var(--gris); }
+
+/* Tarjeta de ayuda */
+.ayuda-estado h2 { margin: 0 0 12px; font-size: 18px; font-weight: 600; }
+.ayuda-estado p { margin: 0 0 16px; font-size: 14px; line-height: 1.4; color: var(--gris); }
+.ayuda-estado .boton { height: 44px; font-size: 14px; }
+.ayuda-estado .boton + .boton { margin-top: 12px; }
+.boton--contorno { background: #fff; color: var(--exito); border: 1px solid var(--borde); }
+.boton--contorno:hover { background: var(--fondo); }
+
+/* Progreso */
+.progreso { margin-top: 24px; }
+.progreso h2 { margin: 0 0 12px; font-size: 20px; font-weight: 600; }
+.progreso__estado { display: flex; align-items: center; gap: 8px; margin: 0 0 16px; font-size: 13px; color: var(--gris); }
+.progreso__estado .icono { color: #b45309; }
+.progreso__nota { margin: 16px 0 0; padding-top: 16px; border-top: 1px solid var(--borde); font-size: 13px; color: var(--gris); }
+
+.pasos { display: grid; grid-template-columns: repeat(5, 1fr); margin: 0; padding: 0; list-style: none; }
+.paso__circulo { display: grid; place-items: center; width: 28px; height: 28px; border-radius: 50%; background: #eef1f6; color: var(--gris); font-size: 12px; font-weight: 600; }
+.paso__circulo .icono { width: 14px; height: 14px; }
+.paso--completado .paso__circulo { background: var(--azul); color: #fff; }
+.paso--actual .paso__circulo { background: #fdf0dc; color: #b45309; border: 1px solid #d97706; }
+.paso__cuerpo { margin-top: 12px; }
+.paso__etiqueta { font-size: 11px; color: var(--gris); }
+.paso__fecha { margin: 6px 0 0; font-size: 12px; color: var(--gris); }
+
+/* Avisos y botón inferior */
+.aviso-estado { display: flex; align-items: center; gap: 12px; margin: 24px 0 0; font-size: 14px; color: var(--gris); }
+.aviso-estado .icono { color: var(--azul); }
+.boton--otra { display: inline-flex; width: auto; height: 44px; margin-top: 24px; padding: 0 16px; color: var(--azul); font-size: 14px; }
+.barra-estado { display: none; }
+.barra-estado__enlace { display: inline-block; margin-top: 10px; font-size: 13px; }

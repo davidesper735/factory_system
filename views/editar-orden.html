@@ -36,6 +36,14 @@
 
     <p class="mensaje" id="mensaje-form" role="alert" hidden></p>
 
+    <div class="alerta" id="alerta-errores" role="alert" hidden>
+      <svg class="icono" aria-hidden="true"><use href="../img/iconos.svg#alerta"/></svg>
+      <div>
+        <p class="alerta__titulo" id="alerta-titulo"></p>
+        <ul class="alerta__lista" id="alerta-lista"></ul>
+      </div>
+    </div>
+
     <form class="formulario-orden" id="form-orden" novalidate>
       <div class="disposicion">
         <div class="columna">
@@ -49,7 +57,7 @@
               </div>
               <div class="campo">
                 <label for="cedula">Cédula *</label>
-                <div class="entrada"><input type="text" id="cedula" placeholder="Número de documento" value="1.098.765.432" inputmode="numeric" autocomplete="off"></div>
+                <div class="entrada"><input type="text" id="cedula" placeholder="Ingresa la cédula" value="1.098.765.432" inputmode="numeric" autocomplete="off"></div>
                 <p class="error" id="error-cedula"></p>
               </div>
               <div class="campo">

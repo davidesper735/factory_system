@@ -9,9 +9,11 @@ function guardar(evento) {
   const errorFotos = modelo.validarFotos(vista.elementos.fotos.files);
   vista.mostrarErrores(errores);
   vista.mostrarErrorFotos(errorFotos);
+  vista.mostrarResumenErrores(errores);
+  vista.mostrarMensaje("", "exito"); // oculta el aviso anterior
 
   if (Object.keys(errores).length > 0 || errorFotos !== "") {
-    vista.mostrarMensaje("Revisa los campos marcados en rojo.", "error");
+    vista.irAlInicio(); // para ver el aviso rojo
     vista.enfocarPrimerError(errores);
     return; // hay errores: no seguimos
   }

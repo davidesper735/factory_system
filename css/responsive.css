@@ -7,7 +7,7 @@
   .contenido { padding: 32px 40px 48px; }
   .resumen { grid-template-columns: repeat(3, 1fr); }
   .filtros { flex-wrap: wrap; }
-  .disposicion { grid-template-columns: 1fr; }
+  .disposicion, .disposicion-estado { grid-template-columns: 1fr; }
   .barra-acciones { padding: 0 40px; }
 }
 
@@ -94,4 +94,32 @@
   .barra-acciones__texto { text-align: center; }
   .barra-acciones__botones { display: flex; width: 100%; gap: 12px; }
   .barra-acciones .boton { flex: 1; }
+
+  /* Ventana de confirmación */
+  .dialogo--orden { padding: 24px; }
+  .dialogo--orden .acciones-dialogo .boton { flex: 1; }
+
+  /* Aviso de errores: una línea por error */
+  .alerta__titulo { font-size: 15px; }
+  .alerta__lista li { display: block; }
+  .alerta__lista li + li::before { content: none; }
+
+  /* Ventana de aviso por WhatsApp */
+  .dialogo--aviso { padding: 20px; }
+  .dialogo--aviso h2 { font-size: 22px; }
+  .dialogo--aviso .acciones-dialogo { flex-direction: column; }
+  .dialogo--aviso .acciones-dialogo .boton { width: 100%; }
+
+  /* Estado del equipo: línea de tiempo vertical y barra inferior */
+  .contenido--estado { padding-bottom: 130px; }
+  .tarjeta-estado { padding: 16px; }
+  .orden__equipo { font-size: 20px; }
+  .progreso { margin-top: 16px; }
+  .progreso h2 { font-size: 18px; }
+  .pasos { display: block; }
+  .paso { display: grid; grid-template-columns: 28px 1fr; column-gap: 12px; margin-bottom: 16px; }
+  .paso__cuerpo { margin-top: 0; }
+  .paso__etiqueta { margin-left: 8px; }
+  .barra-estado { display: block; position: fixed; left: 0; right: 0; bottom: 0; padding: 12px 16px 14px; background: #fff; border-top: 1px solid var(--borde); text-align: center; }
+  .barra-estado .boton { height: 46px; font-size: 15px; }
 }

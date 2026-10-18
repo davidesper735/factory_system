@@ -72,3 +72,4 @@
 .dialogo .entrada select { font-size: 15px; }
 .acciones-dialogo { display: flex; justify-content: flex-end; gap: 12px; margin-top: 8px; }
 .acciones-dialogo .boton { width: auto; height: 42px; padding: 0 20px; font-size: 14px; }
+.mensaje--info { background: var(--azul-claro); color: var(--azul); }

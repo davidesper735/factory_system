@@ -35,23 +35,28 @@ function clicEnTabla(evento) {
 
   accionPendiente = { tipo: accion, fila: fila };
   if (accion === "eliminar") {
-    vista.abrirConfirmacion("Eliminar orden " + datos.numero, "¿Seguro que quieres eliminar la orden de " + datos.cliente + "? Esta acción no se puede deshacer.", "Eliminar", true);
+    vista.abrirConfirmacionOrden(datos, "¿Eliminar la orden " + datos.numero + "?", "Esta acción eliminará la orden, su historial y sus fotos. No podrás recuperarla.", "Eliminar", true);
   } else {
-    vista.abrirConfirmacion("Enviar aviso", "Se enviará un aviso por WhatsApp a " + datos.cliente + " sobre la orden " + datos.numero + ".", "Enviar aviso", false);
+    vista.abrirAviso(datos, modelo.mensajeSugerido(datos));
   }
 }
 
-function confirmarAccion() {
+function confirmarEliminar() {
   const datos = vista.leerFila(accionPendiente.fila);
-  if (accionPendiente.tipo === "eliminar") {
-    vista.eliminarFila(accionPendiente.fila);
-    filtrar();
-    vista.mostrarMensaje("Orden " + datos.numero + " eliminada.", "exito");
-  } else {
-    vista.mostrarMensaje("Aviso enviado a " + datos.cliente + ".", "exito");
-  }
+  vista.eliminarFila(accionPendiente.fila);
+  filtrar();
+  vista.mostrarMensaje("Orden " + datos.numero + " eliminada.", "exito");
   vista.cerrarConfirmacion();
   accionPendiente = null;
+}
+
+function enviarAviso() {
+  const error = modelo.validarMensaje(vista.obtenerMensajeAviso());
+  vista.mostrarErrorAviso(error);
+  if (error !== "") return; // el mensaje no es válido: no se envía
+
+  const datos = vista.leerFila(accionPendiente.fila);
+  vista.mostrarResultadoAviso("Aviso enviado a " + datos.cliente + " (" + datos.telefono + ").");
 }
 
 function iniciar() {
@@ -60,8 +65,11 @@ function iniciar() {
   el.filtroEstado.addEventListener("change", filtrar);
   el.cuerpoTabla.addEventListener("click", clicEnTabla);
 
-  el.confirmarAceptar.addEventListener("click", confirmarAccion);
+  el.confirmarAceptar.addEventListener("click", confirmarEliminar);
   el.confirmarCancelar.addEventListener("click", vista.cerrarConfirmacion);
+
+  el.avisoEnviar.addEventListener("click", enviarAviso);
+  el.avisoCancelar.addEventListener("click", vista.cerrarAviso);
 }
 
 iniciar();
