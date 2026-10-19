@@ -57,7 +57,7 @@
       <aside class="tarjeta-estado ayuda-estado solo-escritorio" aria-labelledby="titulo-ayuda">
         <h2 id="titulo-ayuda">¿Tienes alguna pregunta?</h2>
         <p>Consulta el diagnóstico, las fotos y el historial en el detalle de tu orden.</p>
-        <button class="boton" type="button" data-accion="detalle"><svg class="icono" aria-hidden="true"><use href="../img/iconos.svg#flecha"/></svg>Ver detalle de la orden</button>
+        <a class="boton" href="detalle-orden.html"><svg class="icono" aria-hidden="true"><use href="../img/iconos.svg#flecha"/></svg>Ver detalle de la orden</a>
         <button class="boton boton--contorno" type="button" data-accion="whatsapp"><svg class="icono" aria-hidden="true"><use href="../img/iconos.svg#whatsapp"/></svg>Contactar por WhatsApp</button>
       </aside>
     </div>
@@ -113,11 +113,11 @@
   </main>
 
   <div class="barra-estado">
-    <button class="boton" type="button" data-accion="detalle"><svg class="icono" aria-hidden="true"><use href="../img/iconos.svg#flecha"/></svg>Ver detalle de la orden</button>
+    <a class="boton" href="detalle-orden.html"><svg class="icono" aria-hidden="true"><use href="../img/iconos.svg#flecha"/></svg>Ver detalle de la orden</a>
     <a class="barra-estado__enlace" href="consulta-cliente.html">Consultar otra orden</a>
   </div>
 
   <script type="module" src="../js/controllers/menuController.js"></script>
-  <script type="module" src="../js/controllers/estadoController.js"></script>
+  <script type="module" src="../js/controllers/clienteController.js"></script>
 </body>
 </html>

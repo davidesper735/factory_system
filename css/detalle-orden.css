@@ -1,0 +1,38 @@
+/* Vista: detalle de la orden (pantalla del cliente). Diseño base: escritorio */
+.contenido--detalle { padding-bottom: 110px; }
+
+.encabezado-detalle { margin-bottom: 24px; }
+.volver { display: inline-flex; align-items: center; gap: 6px; margin-bottom: 8px; font-size: 12px; }
+.volver .icono { width: 12px; height: 12px; }
+.titulo-fila { display: flex; justify-content: space-between; align-items: center; gap: 16px; }
+.titulo-fila h1 { margin: 0; font-size: 32px; line-height: 1.2; font-weight: 700; }
+.encabezado-detalle p { margin: 8px 0 0; font-size: 15px; color: var(--gris); }
+
+.datos-grilla { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.datos-grilla--2 { grid-template-columns: repeat(2, 1fr); }
+.datos-grilla + .datos-grilla { margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--borde); }
+
+.texto-detalle { margin: 0; font-size: 15px; line-height: 1.4; }
+.tarjeta--diagnostico { background: #eaf1fb; border-color: #bfd2ee; }
+.diagnostico__autor { margin: 14px 0 0; font-size: 13px; color: var(--azul); }
+
+.tarjeta--fotos .fotos-adjuntas { gap: 12px; }
+.tarjeta--fotos .foto__imagen { height: 132px; border-radius: 4px; }
+.tarjeta--fotos .fotos-resumen { margin: 12px 0 0; }
+
+.resumen-movil { display: none; }
+.resumen-movil__cabecera { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+.resumen-movil h2 { margin: 0; }
+.resumen-movil p { margin: 12px 0 0; font-size: 14px; line-height: 1.5; }
+.resumen-movil__equipo { font-size: 13px !important; color: var(--gris); }
+.resumen-movil__extra { padding-top: 12px; border-top: 1px solid var(--borde); font-size: 13px !important; color: var(--gris); }
+
+/* Historial vertical */
+.pasos--vertical { margin: 0; padding: 0; list-style: none; }
+.pasos--vertical .paso { display: grid; grid-template-columns: 28px 1fr; column-gap: 10px; margin-bottom: 16px; }
+.pasos--vertical .paso__cuerpo { margin-top: 0; }
+.pasos--vertical .paso__etiqueta { margin-left: 8px; }
+.paso__detalle { margin: 4px 0 0; font-size: 12px; color: var(--gris); }
+.historial__nota { margin: 4px 0 0; font-size: 12px; line-height: 1.5; color: var(--gris); }
+
+.barra-acciones__texto .icono { width: 14px; height: 14px; margin-right: 8px; vertical-align: -2px; }

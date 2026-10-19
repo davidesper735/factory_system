@@ -85,7 +85,7 @@
   .fila-vacia td { display: block; }
 
   /* Formulario de nueva orden */
-  .contenido--formulario { padding-bottom: 140px; }
+  .contenido--formulario, .contenido--detalle { padding-bottom: 140px; }
   .insignia--cabecera { display: none; }
   .seccion { padding: 16px; }
   .campos, .campos--2 { grid-template-columns: 1fr; }
@@ -122,4 +122,16 @@
   .paso__etiqueta { margin-left: 8px; }
   .barra-estado { display: block; position: fixed; left: 0; right: 0; bottom: 0; padding: 12px 16px 14px; background: #fff; border-top: 1px solid var(--borde); text-align: center; }
   .barra-estado .boton { height: 46px; font-size: 15px; }
+
+  /* Detalle de la orden: una columna con el orden del diseño */
+  .encabezado-detalle { margin-bottom: 16px; }
+  .titulo-fila h1 { font-size: 26px; }
+  .disposicion { display: flex; flex-direction: column; gap: 16px; }
+  .columna { display: contents; }
+  .resumen-movil { display: block; order: 0; }
+  .tarjeta--diagnostico { order: 1; }
+  .tarjeta--fotos { order: 2; }
+  .tarjeta--historial { order: 3; }
+  .tarjeta--falla { order: 4; }
+  .tarjeta--fotos .foto__imagen { height: 80px; border-radius: 10px; }
 }

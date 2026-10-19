@@ -2,13 +2,8 @@
 .contenido--formulario { padding-bottom: 110px; }
 .encabezado-pagina--centrado { align-items: center; }
 
-.disposicion { display: grid; grid-template-columns: 1fr 468px; gap: 24px; align-items: start; }
-.columna { display: flex; flex-direction: column; gap: 16px; }
 .nota-pagina { grid-column: 1; margin: 0 0 0 24px; font-size: 12px; color: var(--gris); }
 
-.seccion { padding: 20px; background: #fff; border: 1px solid var(--borde); border-radius: 8px; }
-.seccion h2 { margin: 0 0 16px; font-size: 18px; font-weight: 600; }
-.seccion__nota { margin: 16px 0 0; font-size: 12px; color: var(--gris); }
 
 /* Campos en cuadrícula: 3 por fila (o 2 en "Gestión") */
 .campos { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px 14px; }
@@ -35,21 +30,7 @@
 .zona-fotos span { font-size: 12px; color: var(--gris); }
 .zona-fotos small { font-size: 11px; color: var(--gris); }
 
-/* Barra fija inferior */
-.barra-acciones { position: fixed; left: 0; right: 0; bottom: 0; display: flex; justify-content: space-between; align-items: center; height: 74px; padding: 0 64px; background: #fff; border-top: 1px solid var(--borde); }
-.barra-acciones__texto { margin: 0; font-size: 13px; color: var(--gris); }
-.barra-acciones__botones { display: flex; gap: 12px; }
-.barra-acciones .boton { width: auto; height: 44px; min-width: 92px; padding: 0 16px; font-size: 14px; }
-.barra-acciones .boton:not(.boton--secundario) { min-width: 139px; }
 
-/* Evidencias en "Editar orden": fotos ya adjuntas */
-.fotos-adjuntas { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
-.foto { margin: 0; }
-.foto__imagen { height: 118px; border-radius: 8px; background: #eef1f6; }
-.foto figcaption { margin-top: 12px; }
-.foto strong { display: block; font-size: 12px; font-weight: 600; }
-.foto span { display: block; margin-top: 10px; font-size: 11px; color: var(--gris); }
-.fotos-resumen { margin: 12px 0 16px; font-size: 12px; color: var(--gris); }
 .boton--subir { display: inline-flex; width: auto; height: 42px; padding: 0 20px; font-size: 14px; }
 
 /* Campos con error y aviso resumen */
