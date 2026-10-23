@@ -1,4 +1,5 @@
-// MODELO: reglas de validación de los formularios de orden. No toca el HTML.
+// MODELO: validación y preparación de los datos de los formularios de orden. No toca el HTML.
+import { formatearTamano } from "../utils/formato.js";
 
 // Cada error tiene: mensaje (bajo el campo) y resumen (en el aviso rojo de arriba)
 const error = (mensaje, resumen) => ({ mensaje, resumen });
@@ -77,4 +78,45 @@ export function validarFotos(archivos) {
     }
   }
   return "";
+}
+
+// "06/10/2026" -> "2026-10-06" (así se guarda la fecha)
+function convertirFechaAIso(texto) {
+  const [dia, mes, anio] = texto.trim().split("/");
+  return anio + "-" + mes + "-" + dia;
+}
+
+// Convierte lo que se escribió en el formulario en los datos que se guardan
+export function normalizarDatosFormulario(datos) {
+  return {
+    nombre: datos.nombre.trim(),
+    cedula: datos.cedula.replace(/[.\s]/g, ""),
+    telefono: datos.telefono.replace(/[\s-]/g, ""),
+    tipo: datos.tipo,
+    marca: datos.marca.trim(),
+    modelo: datos.modelo.trim(),
+    falla: datos.falla.trim(),
+    diagnostico: datos.diagnostico.trim(),
+    estado: datos.estado,
+    fechaIngreso: convertirFechaAIso(datos.fecha),
+    tecnico: datos.tecnico,
+    costo: Number(datos.costo.replace(/[$.\s]/g, "")),
+  };
+}
+
+// localStorage no guarda imágenes grandes: de cada foto se guarda solo su nombre y tamaño
+export function construirEvidencias(archivos) {
+  return Array.from(archivos).map((archivo) => ({
+    nombre: archivo.name,
+    etiqueta: archivo.name.replace(/\.[^.]+$/, ""),
+    tamano: archivo.size,
+    ruta: "",
+  }));
+}
+
+export function resumirEvidencias(evidencias) {
+  if (evidencias.length === 0) return "Sin fotos adjuntas";
+  const total = evidencias.reduce((suma, evidencia) => suma + evidencia.tamano, 0);
+  const cantidad = evidencias.length === 1 ? "1 foto adjunta" : evidencias.length + " fotos adjuntas";
+  return cantidad + " · " + formatearTamano(total);
 }

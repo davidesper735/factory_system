@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Detalle de la orden #123 | Factory System</title>
+  <title>Detalle de la orden | Factory System</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
   <link rel="stylesheet" href="../css/base.css">
   <link rel="stylesheet" href="../css/componentes.css">
@@ -27,141 +27,100 @@
   </header>
 
   <main class="contenido contenido--detalle">
-    <div class="encabezado-detalle">
-      <a class="volver" href="estado-equipo.html"><svg class="icono" aria-hidden="true"><use href="../img/iconos.svg#volver"/></svg>Volver al estado del equipo</a>
-      <div class="titulo-fila">
-        <h1>Detalle de la orden #123</h1>
-        <span class="insignia insignia--reparacion solo-escritorio">En reparación</span>
-      </div>
-      <p class="solo-escritorio">Información del equipo, diagnóstico y registro de la reparación.</p>
-    </div>
+    <section class="orden-no-encontrada" id="orden-no-encontrada" hidden>
+      <p class="mensaje mensaje--error">No encontramos la orden solicitada. Puede que haya sido eliminada.</p>
+      <a class="boton boton--secundario" href="consulta-cliente.html">Consultar otra orden</a>
+    </section>
 
-    <p class="mensaje" id="mensaje-form" role="status" hidden></p>
-
-    <div class="disposicion">
-      <div class="columna">
-        <!-- Resumen que se ve solo en celular -->
-        <section class="seccion resumen-movil" aria-label="Resumen de la orden">
-          <div class="resumen-movil__cabecera"><h2>HP Pavilion 15</h2><span class="insignia insignia--reparacion">En reparación</span></div>
-          <p class="resumen-movil__equipo">Portátil · HP · Modelo Pavilion 15</p>
-          <p>Juan Pérez · C.C. 1.098.765.432<br>Teléfono: 300 123 4567</p>
-          <p class="resumen-movil__extra">Ingreso: 06/10/2026 · Técnico: Carlos Ruiz<br>Costo de reparación: $120.000 COP</p>
-        </section>
-
-        <section class="seccion solo-escritorio" aria-labelledby="titulo-cliente">
-          <h2 id="titulo-cliente">Cliente y equipo</h2>
-          <div class="datos-grilla">
-            <div><span class="dato__etiqueta">Nombre completo</span><strong class="dato__valor">Juan Pérez</strong></div>
-            <div><span class="dato__etiqueta">Cédula</span><strong class="dato__valor">1.098.765.432</strong></div>
-            <div><span class="dato__etiqueta">Teléfono</span><strong class="dato__valor">300 123 4567</strong></div>
-          </div>
-          <div class="datos-grilla">
-            <div><span class="dato__etiqueta">Tipo de equipo</span><strong class="dato__valor">Portátil</strong></div>
-            <div><span class="dato__etiqueta">Marca</span><strong class="dato__valor">HP</strong></div>
-            <div><span class="dato__etiqueta">Modelo</span><strong class="dato__valor">Pavilion 15</strong></div>
-          </div>
-        </section>
-
-        <section class="seccion tarjeta--falla" aria-labelledby="titulo-falla">
-          <h2 id="titulo-falla">Falla reportada</h2>
-          <p class="texto-detalle">Se apaga después de 15 minutos de uso y presenta sobrecalentamiento.</p>
-        </section>
-
-        <section class="seccion tarjeta--diagnostico" aria-labelledby="titulo-diagnostico">
-          <h2 id="titulo-diagnostico">Diagnóstico técnico</h2>
-          <p class="texto-detalle">Ventilador obstruido y pasta térmica seca. Limpieza interna y cambio de pasta térmica.</p>
-          <p class="diagnostico__autor solo-escritorio">Carlos Ruiz · Diagnóstico registrado el 06 oct. 2026</p>
-        </section>
-
-        <section class="seccion tarjeta--fotos" aria-labelledby="titulo-fotos">
-          <h2 id="titulo-fotos">Fotos del equipo</h2>
-          <div class="fotos-adjuntas">
-            <figure class="foto">
-              <img class="foto__imagen" src="../img/equipo_ingreso.jpg" alt="Vista del equipo">
-              <figcaption><strong>Vista del equipo</strong><span>equipo_ingreso.jpg</span></figcaption>
-            </figure>
-            <figure class="foto">
-              <img class="foto__imagen" src="../img/ventilador_polvo.jpg" alt="Ventilador obstruido">
-              <figcaption><strong>Ventilador obstruido</strong><span>ventilador_polvo.jpg</span></figcaption>
-            </figure>
-          </div>
-          <p class="fotos-resumen solo-escritorio">2 fotos adjuntas · 3,2 MB</p>
-        </section>
+    <!-- Todo lo que depende de la orden se llena desde JS (data-campo, data-insignia, listas) -->
+    <div id="contenido-orden" hidden>
+      <div class="encabezado-detalle">
+        <a class="volver" href="estado-equipo.html" data-destino="estado-equipo.html"><svg class="icono" aria-hidden="true"><use href="../img/iconos.svg#volver"/></svg>Volver al estado del equipo</a>
+        <div class="titulo-fila">
+          <h1>Detalle de la orden #<span data-campo="numero"></span></h1>
+          <span class="insignia solo-escritorio" data-insignia></span>
+        </div>
+        <p class="solo-escritorio">Información del equipo, diagnóstico y registro de la reparación.</p>
       </div>
 
-      <div class="columna">
-        <section class="seccion solo-escritorio" aria-labelledby="titulo-datos">
-          <h2 id="titulo-datos">Datos de la reparación</h2>
-          <div class="datos-grilla datos-grilla--2">
-            <div><span class="dato__etiqueta">Fecha de ingreso</span><strong class="dato__valor">06/10/2026</strong></div>
-            <div><span class="dato__etiqueta">Técnico asignado</span><strong class="dato__valor">Carlos Ruiz</strong></div>
-          </div>
-          <div class="datos-grilla datos-grilla--2">
-            <div><span class="dato__etiqueta">Costo de reparación</span><strong class="dato__valor">$120.000 COP</strong></div>
-          </div>
-        </section>
+      <p class="mensaje" id="mensaje-form" role="status" hidden></p>
 
-        <section class="seccion tarjeta--historial" aria-labelledby="titulo-historial">
-          <h2 id="titulo-historial">Historial de estados</h2>
-          <ol class="pasos pasos--vertical">
-            <li class="paso paso--completado">
-              <span class="paso__circulo"><svg class="icono" aria-label="Completado"><use href="../img/iconos.svg#check"/></svg></span>
-              <div class="paso__cuerpo">
-                <span class="insignia insignia--recibido">Recibido</span><span class="paso__etiqueta">Completado</span>
-                <p class="paso__fecha">06 oct. 2026 · 09:15</p>
-                <p class="paso__detalle">Equipo registrado en el taller.</p>
-              </div>
-            </li>
-            <li class="paso paso--completado">
-              <span class="paso__circulo"><svg class="icono" aria-label="Completado"><use href="../img/iconos.svg#check"/></svg></span>
-              <div class="paso__cuerpo">
-                <span class="insignia insignia--diagnostico">En diagnóstico</span><span class="paso__etiqueta">Completado</span>
-                <p class="paso__fecha">06 oct. 2026 · 14:30</p>
-                <p class="paso__detalle">Se identificó la causa del sobrecalentamiento.</p>
-              </div>
-            </li>
-            <li class="paso paso--actual" aria-current="step">
-              <span class="paso__circulo">3</span>
-              <div class="paso__cuerpo">
-                <span class="insignia insignia--reparacion">En reparación</span><span class="paso__etiqueta">Actual</span>
-                <p class="paso__fecha">07 oct. 2026 · 10:00</p>
-                <p class="paso__detalle">Limpieza interna y cambio de pasta térmica en curso.</p>
-              </div>
-            </li>
-            <li class="paso paso--pendiente">
-              <span class="paso__circulo">4</span>
-              <div class="paso__cuerpo">
-                <span class="insignia insignia--listo">Listo</span><span class="paso__etiqueta">Pendiente</span>
-                <p class="paso__fecha">Pendiente</p>
-                <p class="paso__detalle">Pruebas finales y aviso para recoger.</p>
-              </div>
-            </li>
-            <li class="paso paso--pendiente">
-              <span class="paso__circulo">5</span>
-              <div class="paso__cuerpo">
-                <span class="insignia insignia--entregado">Entregado</span><span class="paso__etiqueta">Pendiente</span>
-                <p class="paso__fecha">Pendiente</p>
-                <p class="paso__detalle">Entrega del equipo al cliente.</p>
-              </div>
-            </li>
-          </ol>
-          <p class="historial__nota">Listo y Entregado siguen pendientes. Se avisará al cliente cuando finalice la reparación.</p>
-        </section>
+      <div class="disposicion">
+        <div class="columna">
+          <!-- Resumen que se ve solo en celular -->
+          <section class="seccion resumen-movil" aria-label="Resumen de la orden">
+            <div class="resumen-movil__cabecera"><h2 data-campo="equipo"></h2><span class="insignia" data-insignia></span></div>
+            <p class="resumen-movil__equipo" data-campo="lineaEquipoMovil"></p>
+            <p><span data-campo="clienteCedula"></span><br><span data-campo="telefonoMovil"></span></p>
+            <p class="resumen-movil__extra"><span data-campo="ingresoTecnico"></span><br><span data-campo="costoMovil"></span></p>
+          </section>
+
+          <section class="seccion solo-escritorio" aria-labelledby="titulo-cliente">
+            <h2 id="titulo-cliente">Cliente y equipo</h2>
+            <div class="datos-grilla">
+              <div><span class="dato__etiqueta">Nombre completo</span><strong class="dato__valor" data-campo="nombre"></strong></div>
+              <div><span class="dato__etiqueta">Cédula</span><strong class="dato__valor" data-campo="cedula"></strong></div>
+              <div><span class="dato__etiqueta">Teléfono</span><strong class="dato__valor" data-campo="telefono"></strong></div>
+            </div>
+            <div class="datos-grilla">
+              <div><span class="dato__etiqueta">Tipo de equipo</span><strong class="dato__valor" data-campo="tipo"></strong></div>
+              <div><span class="dato__etiqueta">Marca</span><strong class="dato__valor" data-campo="marca"></strong></div>
+              <div><span class="dato__etiqueta">Modelo</span><strong class="dato__valor" data-campo="modelo"></strong></div>
+            </div>
+          </section>
+
+          <section class="seccion tarjeta--falla" aria-labelledby="titulo-falla">
+            <h2 id="titulo-falla">Falla reportada</h2>
+            <p class="texto-detalle" data-campo="falla"></p>
+          </section>
+
+          <section class="seccion tarjeta--diagnostico" aria-labelledby="titulo-diagnostico">
+            <h2 id="titulo-diagnostico">Diagnóstico técnico</h2>
+            <p class="texto-detalle" data-campo="diagnostico"></p>
+            <p class="diagnostico__autor solo-escritorio" data-campo="autorDiagnostico"></p>
+          </section>
+
+          <section class="seccion tarjeta--fotos" aria-labelledby="titulo-fotos">
+            <h2 id="titulo-fotos">Fotos del equipo</h2>
+            <div class="fotos-adjuntas" id="lista-fotos"></div>
+            <p class="fotos-resumen solo-escritorio" data-campo="resumenFotos"></p>
+          </section>
+        </div>
+
+        <div class="columna">
+          <section class="seccion solo-escritorio" aria-labelledby="titulo-datos">
+            <h2 id="titulo-datos">Datos de la reparación</h2>
+            <div class="datos-grilla datos-grilla--2">
+              <div><span class="dato__etiqueta">Fecha de ingreso</span><strong class="dato__valor" data-campo="fechaIngreso"></strong></div>
+              <div><span class="dato__etiqueta">Técnico asignado</span><strong class="dato__valor" data-campo="tecnico"></strong></div>
+            </div>
+            <div class="datos-grilla datos-grilla--2">
+              <div><span class="dato__etiqueta">Costo de reparación</span><strong class="dato__valor" data-campo="costo"></strong></div>
+            </div>
+          </section>
+
+          <section class="seccion tarjeta--historial" aria-labelledby="titulo-historial">
+            <h2 id="titulo-historial">Historial de estados</h2>
+            <ol class="pasos pasos--vertical" id="lista-pasos"></ol>
+            <p class="historial__nota" data-campo="notaHistorial"></p>
+          </section>
+        </div>
+      </div>
+
+      <div class="barra-acciones">
+        <p class="barra-acciones__texto">
+          <span class="solo-escritorio"><svg class="icono" aria-hidden="true"><use href="../img/iconos.svg#candado"/></svg>Los datos del cliente se usan únicamente para el seguimiento y los avisos de su reparación.</span>
+          <span class="solo-movil">Desliza para ver el historial y la falla reportada</span>
+        </p>
+        <div class="barra-acciones__botones">
+          <button class="boton boton--contorno" type="button" data-accion="whatsapp"><svg class="icono" aria-hidden="true"><use href="../img/iconos.svg#whatsapp"/></svg>Contactar por WhatsApp</button>
+        </div>
       </div>
     </div>
   </main>
 
-  <div class="barra-acciones">
-    <p class="barra-acciones__texto">
-      <span class="solo-escritorio"><svg class="icono" aria-hidden="true"><use href="../img/iconos.svg#candado"/></svg>Los datos del cliente se usan únicamente para el seguimiento y los avisos de su reparación.</span>
-      <span class="solo-movil">Desliza para ver el historial y la falla reportada</span>
-    </p>
-    <div class="barra-acciones__botones">
-      <button class="boton boton--contorno" type="button" data-accion="whatsapp"><svg class="icono" aria-hidden="true"><use href="../img/iconos.svg#whatsapp"/></svg>Contactar por WhatsApp</button>
-    </div>
-  </div>
-
   <script type="module" src="../js/controllers/menuController.js"></script>
   <script type="module" src="../js/controllers/clienteController.js"></script>
+  <script type="module" src="../js/controllers/detalleController.js"></script>
 </body>
 </html>

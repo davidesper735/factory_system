@@ -1,30 +1,21 @@
-// CONTROLADOR: escucha los eventos del formulario y coordina modelo y vista.
-import * as modelo from "../models/ordenFormModel.js";
+// CONTROLADOR de nueva orden: CREATE del CRUD.
+import { crearOrden } from "../models/ordenesModel.js";
+import { normalizarDatosFormulario, construirEvidencias, validarFotos } from "../models/ordenFormModel.js";
 import * as vista from "../views/nuevaOrdenView.js";
+import { validarFormularioOrden } from "./validacionOrden.js";
 
 function guardar(evento) {
   evento.preventDefault(); // evita que la página se recargue
+  if (!validarFormularioOrden(vista)) return;
 
-  const errores = modelo.validarOrden(vista.obtenerDatos());
-  const errorFotos = modelo.validarFotos(vista.elementos.fotos.files);
-  vista.mostrarErrores(errores);
-  vista.mostrarErrorFotos(errorFotos);
-  vista.mostrarResumenErrores(errores);
-  vista.mostrarMensaje("", "exito"); // oculta el aviso anterior
-
-  if (Object.keys(errores).length > 0 || errorFotos !== "") {
-    vista.irAlInicio(); // para ver el aviso rojo
-    vista.enfocarPrimerError(errores);
-    return; // hay errores: no seguimos
-  }
-
-  vista.mostrarMensaje("Orden guardada correctamente. (En esta entrega los datos aún no se guardan.)", "exito");
-  vista.limpiarFormulario();
-  vista.irAlInicio();
+  const datos = normalizarDatosFormulario(vista.obtenerDatos());
+  const evidencias = construirEvidencias(vista.elementos.fotos.files);
+  const orden = crearOrden(datos, evidencias);
+  window.location.href = "ordenes.html?creada=" + orden.numero;
 }
 
 function revisarFotos(archivos) {
-  vista.mostrarErrorFotos(modelo.validarFotos(archivos));
+  vista.mostrarErrorFotos(validarFotos(archivos));
   vista.mostrarResumenFotos(archivos);
 }
 
@@ -35,10 +26,8 @@ function soltarFotos(evento) {
   revisarFotos(vista.elementos.fotos.files);
 }
 
-function iniciar() {
+function configurarFotos() {
   const el = vista.elementos;
-  el.formulario.addEventListener("submit", guardar);
-
   el.fotos.addEventListener("change", () => revisarFotos(el.fotos.files));
   el.zonaFotos.addEventListener("dragover", (evento) => {
     evento.preventDefault(); // necesario para permitir soltar archivos
@@ -46,15 +35,22 @@ function iniciar() {
   });
   el.zonaFotos.addEventListener("dragleave", () => vista.marcarZona(false));
   el.zonaFotos.addEventListener("drop", soltarFotos);
+}
 
-  // Cancelar pide confirmación antes de salir
+function configurarCancelar() {
+  const el = vista.elementos;
   el.botonCancelar.addEventListener("click", () => {
     vista.abrirConfirmacion("Cancelar la orden", "Se perderán los datos que escribiste. ¿Quieres salir?", "Sí, salir", true);
   });
-  el.confirmarAceptar.addEventListener("click", () => {
-    window.location.href = "ordenes.html";
-  });
+  el.confirmarAceptar.addEventListener("click", () => (window.location.href = "ordenes.html"));
   el.confirmarCancelar.addEventListener("click", vista.cerrarConfirmacion);
+}
+
+function iniciar() {
+  vista.establecerFechaDeHoy();
+  vista.elementos.formulario.addEventListener("submit", guardar);
+  configurarFotos();
+  configurarCancelar();
 }
 
 iniciar();

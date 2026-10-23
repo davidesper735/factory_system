@@ -1,5 +1,5 @@
 // CONTROLADOR: escucha el envío del formulario y coordina modelo y vista.
-import * as modelo from "../models/ordenModel.js";
+import * as modelo from "../models/consultaModel.js";
 import * as vista from "../views/consultaView.js";
 
 function enviarFormulario(evento) {
@@ -17,7 +17,7 @@ function enviarFormulario(evento) {
     vista.mostrarMensaje("No encontramos una orden con esos datos. Revisa la cédula y el número de orden.", "error");
     return;
   }
-  window.location.href = "estado-equipo.html"; // muestra el estado del equipo
+  window.location.href = "estado-equipo.html?orden=" + orden.numero; // muestra el estado de esa orden
 }
 
 vista.elementos.formulario.addEventListener("submit", enviarFormulario);

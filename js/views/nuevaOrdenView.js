@@ -1,8 +1,6 @@
 // VISTA (JS) de nueva orden: lo compartido está en ordenFormView.js
-import { mostrarErrores, mostrarErrorFotos } from "./ordenFormView.js";
+import { porId } from "../utils/dom.js";
 export * from "./ordenFormView.js";
-
-const porId = (id) => document.getElementById(id);
 
 export const elementos = {
   formulario: porId("form-orden"),
@@ -21,11 +19,4 @@ export function mostrarResumenFotos(archivos) {
 
 export function marcarZona(activa) {
   elementos.zonaFotos.classList.toggle("zona-fotos--activa", activa);
-}
-
-export function limpiarFormulario() {
-  elementos.formulario.reset();
-  mostrarErrores({});
-  mostrarErrorFotos("");
-  mostrarResumenFotos([]);
 }

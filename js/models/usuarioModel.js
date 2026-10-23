@@ -1,6 +1,8 @@
-// MODELO: datos y reglas de negocio. No toca el HTML.
+// MODELO: datos y reglas de negocio. No toca el HTML ni localStorage directamente.
+import { leerDatos, guardarDatos, borrarDatos } from "../storage/almacenamiento.js";
+
 const USUARIOS = [{ usuario: "admin", clave: "admin123" }]; // datos de prueba
-const LLAVE = "usuarioRecordado";
+const LLAVE_USUARIO = "factorySystem.usuarioRecordado";
 
 // Devuelve un objeto con los errores (vacío si todo está bien)
 export function validarCredenciales(usuario, clave) {
@@ -26,13 +28,13 @@ export function autenticar(usuario, clave) {
 }
 
 export function guardarUsuario(usuario) {
-  localStorage.setItem(LLAVE, usuario.trim());
+  guardarDatos(LLAVE_USUARIO, usuario.trim());
 }
 
 export function olvidarUsuario() {
-  localStorage.removeItem(LLAVE);
+  borrarDatos(LLAVE_USUARIO);
 }
 
 export function obtenerUsuarioGuardado() {
-  return localStorage.getItem(LLAVE) || "";
+  return leerDatos(LLAVE_USUARIO, "");
 }
