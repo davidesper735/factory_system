@@ -1,20 +1,67 @@
-// MODELO: validación y preparación de los datos de los formularios de orden. No toca el HTML.
+// MODELO DE FORMULARIOS DE ORDEN: valida y prepara los datos de "nueva orden" y "editar orden".
+// No toca el HTML.
 import { formatearTamano } from "../utils/formato.js";
 
-// Cada error tiene: mensaje (bajo el campo) y resumen (en el aviso rojo de arriba)
-const error = (mensaje, resumen) => ({ mensaje, resumen });
+// Cada error tiene dos textos:
+//   mensaje: sale debajo del campo
+//   resumen: sale en el aviso rojo de arriba
+function crearError(mensaje, resumen) {
+  return { mensaje: mensaje, resumen: resumen };
+}
 
+// Revisa que la fecha tenga el formato dd/mm/aaaa y que exista (por ejemplo, no el 31/02)
 function fechaValida(texto) {
-  const partes = /^(\d{2})\/(\d{2})\/(\d{4})$/.exec(texto.trim());
-  if (!partes) return false;
-  const dia = Number(partes[1]);
-  const mes = Number(partes[2]);
-  const anio = Number(partes[3]);
+  const partes = texto.trim().split("/");
+  if (partes.length !== 3) {
+    return false;
+  }
+  const dia = Number(partes[0]);
+  const mes = Number(partes[1]);
+  const anio = Number(partes[2]);
+  if (partes[2].length !== 4) {
+    return false;
+  }
   const fecha = new Date(anio, mes - 1, dia);
   return fecha.getFullYear() === anio && fecha.getMonth() === mes - 1 && fecha.getDate() === dia;
 }
 
-// Devuelve un objeto con los errores por campo (vacío si todo está bien)
+function validarCedula(cedula) {
+  if (cedula === "") {
+    return crearError("La cédula es obligatoria.", "Cédula: es obligatoria");
+  }
+  if (!/^\d{6,10}$/.test(cedula)) {
+    return crearError("La cédula debe tener entre 6 y 10 números.", "Cédula: debe tener entre 6 y 10 números");
+  }
+  return null; // null significa "sin error"
+}
+
+function validarTelefono(telefono) {
+  if (telefono === "") {
+    return crearError("El teléfono es obligatorio.", "Teléfono: es obligatorio");
+  }
+  if (!/^\d+$/.test(telefono)) {
+    return crearError("Usa solo números (10 dígitos).", "Teléfono: usa solo números (10 dígitos)");
+  }
+  if (!/^3\d{9}$/.test(telefono)) {
+    return crearError("Debe tener 10 dígitos y empezar por 3.", "Teléfono: debe tener 10 dígitos y empezar por 3");
+  }
+  return null;
+}
+
+function validarCosto(costo) {
+  if (costo === "") {
+    return crearError("El costo es obligatorio.", "Costo: es obligatorio");
+  }
+  if (/^-\d+$/.test(costo)) {
+    return crearError("El costo no puede ser negativo.", "Costo: no puede ser negativo");
+  }
+  if (!/^\d+$/.test(costo)) {
+    return crearError("Escribe el costo solo con números (ej. $120.000).", "Costo: usa solo números");
+  }
+  return null;
+}
+
+// Devuelve un objeto con los errores de cada campo. Si no hay errores, el objeto queda vacío.
 export function validarOrden(datos) {
   const errores = {};
   const cedula = datos.cedula.replace(/[.\s]/g, "");
@@ -22,48 +69,32 @@ export function validarOrden(datos) {
   const costo = datos.costo.replace(/[$.\s]/g, "");
 
   if (datos.nombre.trim().length < 3) {
-    errores.nombre = error("Escribe el nombre completo (mínimo 3 letras).", "Nombre: escribe el nombre completo");
+    errores.nombre = crearError("Escribe el nombre completo (mínimo 3 letras).", "Nombre: escribe el nombre completo");
   }
-
-  if (cedula === "") {
-    errores.cedula = error("La cédula es obligatoria.", "Cédula: es obligatoria");
-  } else if (!/^\d{6,10}$/.test(cedula)) {
-    errores.cedula = error("La cédula debe tener entre 6 y 10 números.", "Cédula: debe tener entre 6 y 10 números");
+  if (validarCedula(cedula) !== null) {
+    errores.cedula = validarCedula(cedula);
   }
-
-  if (telefono === "") {
-    errores.telefono = error("El teléfono es obligatorio.", "Teléfono: es obligatorio");
-  } else if (!/^\d+$/.test(telefono)) {
-    errores.telefono = error("Usa solo números (10 dígitos).", "Teléfono: usa solo números (10 dígitos)");
-  } else if (!/^3\d{9}$/.test(telefono)) {
-    errores.telefono = error("Debe tener 10 dígitos y empezar por 3.", "Teléfono: debe tener 10 dígitos y empezar por 3");
+  if (validarTelefono(telefono) !== null) {
+    errores.telefono = validarTelefono(telefono);
   }
-
   if (datos.tipo === "") {
-    errores.tipo = error("Selecciona el tipo de equipo.", "Tipo de equipo: selecciona una opción");
+    errores.tipo = crearError("Selecciona el tipo de equipo.", "Tipo de equipo: selecciona una opción");
   }
   if (datos.marca.trim() === "") {
-    errores.marca = error("Escribe la marca del equipo.", "Marca: es obligatoria");
+    errores.marca = crearError("Escribe la marca del equipo.", "Marca: es obligatoria");
   }
   if (datos.modelo.trim() === "") {
-    errores.modelo = error("Escribe el modelo del equipo.", "Modelo: es obligatorio");
+    errores.modelo = crearError("Escribe el modelo del equipo.", "Modelo: es obligatorio");
   }
   if (datos.falla.trim().length < 10) {
-    errores.falla = error("Describe la falla con al menos 10 caracteres.", "Falla reportada: describe la falla (mínimo 10 caracteres)");
+    errores.falla = crearError("Describe la falla con al menos 10 caracteres.", "Falla reportada: describe la falla (mínimo 10 caracteres)");
   }
-
   if (!fechaValida(datos.fecha)) {
-    errores.fecha = error("Escribe una fecha válida con el formato dd/mm/aaaa.", "Fecha de ingreso: usa el formato dd/mm/aaaa");
+    errores.fecha = crearError("Escribe una fecha válida con el formato dd/mm/aaaa.", "Fecha de ingreso: usa el formato dd/mm/aaaa");
   }
-
-  if (costo === "") {
-    errores.costo = error("El costo es obligatorio.", "Costo: es obligatorio");
-  } else if (/^-\d+$/.test(costo)) {
-    errores.costo = error("El costo no puede ser negativo.", "Costo: no puede ser negativo");
-  } else if (!/^\d+$/.test(costo)) {
-    errores.costo = error("Escribe el costo solo con números (ej. $120.000).", "Costo: usa solo números");
+  if (validarCosto(costo) !== null) {
+    errores.costo = validarCosto(costo);
   }
-
   return errores;
 }
 
@@ -71,10 +102,10 @@ export function validarOrden(datos) {
 export function validarFotos(archivos) {
   for (const archivo of archivos) {
     if (archivo.type !== "image/jpeg" && archivo.type !== "image/png") {
-      return "\"" + archivo.name + "\" no es una imagen JPG o PNG.";
+      return '"' + archivo.name + '" no es una imagen JPG o PNG.';
     }
     if (archivo.size > 5 * 1024 * 1024) {
-      return "\"" + archivo.name + "\" pesa más de 5 MB.";
+      return '"' + archivo.name + '" pesa más de 5 MB.';
     }
   }
   return "";
@@ -82,8 +113,8 @@ export function validarFotos(archivos) {
 
 // "06/10/2026" -> "2026-10-06" (así se guarda la fecha)
 function convertirFechaAIso(texto) {
-  const [dia, mes, anio] = texto.trim().split("/");
-  return anio + "-" + mes + "-" + dia;
+  const partes = texto.trim().split("/");
+  return partes[2] + "-" + partes[1] + "-" + partes[0];
 }
 
 // Convierte lo que se escribió en el formulario en los datos que se guardan
@@ -106,17 +137,30 @@ export function normalizarDatosFormulario(datos) {
 
 // localStorage no guarda imágenes grandes: de cada foto se guarda solo su nombre y tamaño
 export function construirEvidencias(archivos) {
-  return Array.from(archivos).map((archivo) => ({
-    nombre: archivo.name,
-    etiqueta: archivo.name.replace(/\.[^.]+$/, ""),
-    tamano: archivo.size,
-    ruta: "",
-  }));
+  const evidencias = [];
+  for (const archivo of archivos) {
+    evidencias.push({
+      nombre: archivo.name,
+      etiqueta: archivo.name.replace(/\.[^.]+$/, ""), // el nombre sin la extensión
+      tamano: archivo.size,
+      ruta: "",
+    });
+  }
+  return evidencias;
 }
 
+// Texto como "2 fotos adjuntas · 3,2 MB"
 export function resumirEvidencias(evidencias) {
-  if (evidencias.length === 0) return "Sin fotos adjuntas";
-  const total = evidencias.reduce((suma, evidencia) => suma + evidencia.tamano, 0);
-  const cantidad = evidencias.length === 1 ? "1 foto adjunta" : evidencias.length + " fotos adjuntas";
+  if (evidencias.length === 0) {
+    return "Sin fotos adjuntas";
+  }
+  let total = 0;
+  for (const evidencia of evidencias) {
+    total = total + evidencia.tamano;
+  }
+  let cantidad = evidencias.length + " fotos adjuntas";
+  if (evidencias.length === 1) {
+    cantidad = "1 foto adjunta";
+  }
   return cantidad + " · " + formatearTamano(total);
 }

@@ -24,7 +24,12 @@ export function validarCredenciales(usuario, clave) {
 }
 
 export function autenticar(usuario, clave) {
-  return USUARIOS.some((u) => u.usuario === usuario.trim() && u.clave === clave);
+  for (const registrado of USUARIOS) {
+    if (registrado.usuario === usuario.trim() && registrado.clave === clave) {
+      return true;
+    }
+  }
+  return false;
 }
 
 export function guardarUsuario(usuario) {

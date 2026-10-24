@@ -2,8 +2,14 @@
 const boton = document.getElementById("menu-boton");
 const menu = document.getElementById("menu-principal");
 
-boton.addEventListener("click", () => {
-  const abierto = menu.classList.toggle("menu--abierto");
+function alternarMenu() {
+  const abierto = menu.classList.toggle("menu--abierto"); // true si quedó abierto
   boton.setAttribute("aria-expanded", abierto);
-  boton.setAttribute("aria-label", abierto ? "Cerrar menú" : "Abrir menú");
-});
+  if (abierto) {
+    boton.setAttribute("aria-label", "Cerrar menú");
+  } else {
+    boton.setAttribute("aria-label", "Abrir menú");
+  }
+}
+
+boton.addEventListener("click", alternarMenu);

@@ -1,30 +1,44 @@
-// FORMATO: convierte datos guardados (fechas ISO, números) en texto para mostrar.
-// No usa el DOM ni localStorage.
+// FORMATO: convierte datos guardados (fechas, números) en texto bonito para mostrar.
+// Las fechas se guardan como texto: "2026-10-06" o "2026-10-06T09:15".
 
 const MESES = ["ene.", "feb.", "mar.", "abr.", "may.", "jun.", "jul.", "ago.", "sep.", "oct.", "nov.", "dic."];
 
-const conDosDigitos = (numero) => String(numero).padStart(2, "0");
-const conPuntosDeMiles = (texto) => String(texto).replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+function conDosDigitos(numero) { // 5 -> "05"
+  return String(numero).padStart(2, "0");
+}
 
-// ----- Fechas: se guardan como "2026-10-06" o "2026-10-06T09:15" -----
+function conPuntosDeMiles(numero) { // 120000 -> "120.000"
+  return String(numero).replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+}
+
+// ----- Fecha y hora de ahora -----
 export function fechaDeHoyIso() {
   const hoy = new Date();
-  return hoy.getFullYear() + "-" + conDosDigitos(hoy.getMonth() + 1) + "-" + conDosDigitos(hoy.getDate());
+  const anio = hoy.getFullYear();
+  const mes = conDosDigitos(hoy.getMonth() + 1);
+  const dia = conDosDigitos(hoy.getDate());
+  return anio + "-" + mes + "-" + dia;
 }
 
 export function fechaHoraActualIso() {
   const ahora = new Date();
-  return fechaDeHoyIso() + "T" + conDosDigitos(ahora.getHours()) + ":" + conDosDigitos(ahora.getMinutes());
+  const hora = conDosDigitos(ahora.getHours());
+  const minutos = conDosDigitos(ahora.getMinutes());
+  return fechaDeHoyIso() + "T" + hora + ":" + minutos;
 }
 
+// ----- Fechas guardadas -> texto -----
 export function formatearFecha(iso) { // "06 oct. 2026"
-  const [anio, mes, dia] = iso.slice(0, 10).split("-");
-  return dia + " " + MESES[Number(mes) - 1] + " " + anio;
+  const partes = iso.slice(0, 10).split("-");
+  const anio = partes[0];
+  const mes = Number(partes[1]);
+  const dia = partes[2];
+  return dia + " " + MESES[mes - 1] + " " + anio;
 }
 
 export function formatearFechaCorta(iso) { // "06/10/2026"
-  const [anio, mes, dia] = iso.slice(0, 10).split("-");
-  return dia + "/" + mes + "/" + anio;
+  const partes = iso.slice(0, 10).split("-");
+  return partes[2] + "/" + partes[1] + "/" + partes[0];
 }
 
 export function formatearHora(iso) { // "09:15"
@@ -53,5 +67,6 @@ export function formatearTelefonoCompleto(digitos) { // "+57 300 123 4567"
 }
 
 export function formatearTamano(bytes) { // 3355443 -> "3,2 MB"
-  return (bytes / 1048576).toFixed(1).replace(".", ",") + " MB";
+  const megas = (bytes / 1048576).toFixed(1);
+  return megas.replace(".", ",") + " MB";
 }

@@ -7,10 +7,22 @@ export const ESTADOS = [
   { clave: "entregado", texto: "Entregado", nota: "Entrega del equipo al cliente." },
 ];
 
+// Devuelve el estado que tiene esa clave (por ejemplo "listo")
 export function buscarEstado(clave) {
-  return ESTADOS.find((estado) => estado.clave === clave);
+  for (const estado of ESTADOS) {
+    if (estado.clave === clave) {
+      return estado;
+    }
+  }
+  return null;
 }
 
+// Devuelve la posición del estado en la lista (0 a 4)
 export function indiceDeEstado(clave) {
-  return ESTADOS.findIndex((estado) => estado.clave === clave);
+  for (let indice = 0; indice < ESTADOS.length; indice++) {
+    if (ESTADOS[indice].clave === clave) {
+      return indice;
+    }
+  }
+  return -1;
 }

@@ -1,12 +1,13 @@
 // VISTA de fotos: construye con el DOM la lista de fotos de una orden.
-import { crearElemento } from "../utils/dom.js";
+import { crearElemento, vaciar } from "../utils/dom.js";
 
 function crearImagen(evidencia) {
-  if (evidencia.ruta === "") { // foto subida por el usuario: solo se guardó su nombre
-    const marcador = crearElemento("div", "foto__imagen");
-    marcador.setAttribute("role", "img");
-    marcador.setAttribute("aria-label", evidencia.etiqueta);
-    return marcador;
+  if (evidencia.ruta === "") {
+    // Foto subida por el usuario: solo se guardó su nombre, así que se muestra un recuadro
+    const recuadro = crearElemento("div", "foto__imagen");
+    recuadro.setAttribute("role", "img");
+    recuadro.setAttribute("aria-label", evidencia.etiqueta);
+    return recuadro;
   }
   const imagen = crearElemento("img", "foto__imagen");
   imagen.src = evidencia.ruta;
@@ -16,12 +17,18 @@ function crearImagen(evidencia) {
 
 function crearFoto(evidencia) {
   const leyenda = crearElemento("figcaption");
-  leyenda.append(crearElemento("strong", "", evidencia.etiqueta), crearElemento("span", "", evidencia.nombre));
+  leyenda.appendChild(crearElemento("strong", "", evidencia.etiqueta));
+  leyenda.appendChild(crearElemento("span", "", evidencia.nombre));
+
   const figura = crearElemento("figure", "foto");
-  figura.append(crearImagen(evidencia), leyenda);
+  figura.appendChild(crearImagen(evidencia));
+  figura.appendChild(leyenda);
   return figura;
 }
 
 export function renderizarFotos(contenedor, evidencias) {
-  contenedor.replaceChildren(...evidencias.map(crearFoto));
+  vaciar(contenedor);
+  for (const evidencia of evidencias) {
+    contenedor.appendChild(crearFoto(evidencia));
+  }
 }

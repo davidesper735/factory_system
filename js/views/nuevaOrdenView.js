@@ -1,4 +1,4 @@
-// VISTA (JS) de nueva orden: lo compartido está en ordenFormView.js
+// VISTA (JS) de nueva orden: lo que comparte con "editar" está en ordenFormView.js
 import { porId } from "../utils/dom.js";
 export * from "./ordenFormView.js";
 
@@ -12,11 +12,17 @@ export const elementos = {
 };
 
 export function mostrarResumenFotos(archivos) {
-  porId("resumen-fotos").textContent = archivos.length > 0
-    ? archivos.length + " foto(s) seleccionada(s)"
-    : "Arrastra tus fotos aquí o selecciona archivos";
+  if (archivos.length > 0) {
+    porId("resumen-fotos").textContent = archivos.length + " foto(s) seleccionada(s)";
+  } else {
+    porId("resumen-fotos").textContent = "Arrastra tus fotos aquí o selecciona archivos";
+  }
 }
 
 export function marcarZona(activa) {
-  elementos.zonaFotos.classList.toggle("zona-fotos--activa", activa);
+  if (activa) {
+    elementos.zonaFotos.classList.add("zona-fotos--activa");
+  } else {
+    elementos.zonaFotos.classList.remove("zona-fotos--activa");
+  }
 }

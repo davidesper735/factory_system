@@ -2,6 +2,7 @@
 import { ESTADOS } from "../data/estados.js";
 import { formatearCosto } from "../utils/formato.js";
 
+// ¿El texto buscado aparece en el número, el nombre o la cédula de la orden?
 function coincideConElTexto(orden, textoBuscado) {
   const contenido = "#" + orden.numero + " " + orden.nombre + " " + orden.cedula;
   return contenido.toLowerCase().includes(textoBuscado);
@@ -10,16 +11,26 @@ function coincideConElTexto(orden, textoBuscado) {
 // Devuelve solo las órdenes que cumplen la búsqueda y el estado elegido
 export function filtrarOrdenes(ordenes, texto, estado) {
   const textoBuscado = texto.trim().toLowerCase().replace(/\./g, "");
-  return ordenes.filter((orden) => {
-    return coincideConElTexto(orden, textoBuscado) && (estado === "todos" || orden.estado === estado);
-  });
+  const resultado = [];
+  for (const orden of ordenes) {
+    const cumpleTexto = coincideConElTexto(orden, textoBuscado);
+    const cumpleEstado = estado === "todos" || orden.estado === estado;
+    if (cumpleTexto && cumpleEstado) {
+      resultado.push(orden);
+    }
+  }
+  return resultado;
 }
 
-// Devuelve cuántas órdenes hay en cada estado: { recibido: 2, diagnostico: 1, ... }
+// Devuelve cuántas órdenes hay en cada estado. Ejemplo: { recibido: 2, diagnostico: 1, ... }
 export function contarPorEstado(ordenes) {
   const conteo = {};
-  ESTADOS.forEach((estado) => (conteo[estado.clave] = 0));
-  ordenes.forEach((orden) => conteo[orden.estado]++);
+  for (const estado of ESTADOS) {
+    conteo[estado.clave] = 0;
+  }
+  for (const orden of ordenes) {
+    conteo[orden.estado] = conteo[orden.estado] + 1;
+  }
   return conteo;
 }
 
@@ -28,20 +39,30 @@ export function mensajeSugerido(orden) {
   const nombre = orden.nombre.split(" ")[0];
   const equipo = orden.marca + " " + orden.modelo;
   const cierre = "Orden #" + orden.numero + " · Factory System.";
-  const costo = formatearCosto(orden.costo);
-  const mensajes = {
-    recibido: "Hola, " + nombre + ". Recibimos tu equipo " + equipo + ". Te avisaremos cuando iniciemos el diagnóstico. " + cierre,
-    diagnostico: "Hola, " + nombre + ". Estamos revisando tu equipo " + equipo + " para encontrar la falla. Te avisaremos con el diagnóstico y el costo. " + cierre,
-    reparacion: "Hola, " + nombre + ". Tu equipo " + equipo + " está en reparación. Ya iniciamos el trabajo. Costo: " + costo + ". Te avisaremos cuando esté listo. " + cierre,
-    listo: "Hola, " + nombre + ". Tu equipo " + equipo + " ya está listo para recoger. Costo: " + costo + ". " + cierre,
-    entregado: "Hola, " + nombre + ". Gracias por confiar en nosotros: tu equipo " + equipo + " fue entregado. " + cierre,
-  };
-  return mensajes[orden.estado];
+  const saludo = "Hola, " + nombre + ". ";
+
+  if (orden.estado === "recibido") {
+    return saludo + "Recibimos tu equipo " + equipo + ". Te avisaremos cuando iniciemos el diagnóstico. " + cierre;
+  }
+  if (orden.estado === "diagnostico") {
+    return saludo + "Estamos revisando tu equipo " + equipo + " para encontrar la falla. Te avisaremos con el diagnóstico y el costo. " + cierre;
+  }
+  if (orden.estado === "reparacion") {
+    return saludo + "Tu equipo " + equipo + " está en reparación. Ya iniciamos el trabajo. Costo: " + formatearCosto(orden.costo) + ". Te avisaremos cuando esté listo. " + cierre;
+  }
+  if (orden.estado === "listo") {
+    return saludo + "Tu equipo " + equipo + " ya está listo para recoger. Costo: " + formatearCosto(orden.costo) + ". " + cierre;
+  }
+  return saludo + "Gracias por confiar en nosotros: tu equipo " + equipo + " fue entregado. " + cierre;
 }
 
 // Devuelve el error del mensaje o "" si está bien
 export function validarMensaje(texto) {
-  if (texto.trim() === "") return "Escribe el mensaje antes de enviarlo.";
-  if (texto.length > 500) return "El mensaje no puede pasar de 500 caracteres.";
+  if (texto.trim() === "") {
+    return "Escribe el mensaje antes de enviarlo.";
+  }
+  if (texto.length > 500) {
+    return "El mensaje no puede pasar de 500 caracteres.";
+  }
   return "";
 }

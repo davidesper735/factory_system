@@ -6,21 +6,23 @@ import { renderizarPasos } from "./pasosView.js";
 import { renderizarFotos } from "./fotosView.js";
 export { mostrarOrdenNoEncontrada } from "../utils/dom.js";
 
-function crearTextosDeCelular(orden) { // resumen que solo se ve en celular
-  const costo = formatearCosto(orden.costo) + " COP";
-  return {
-    lineaEquipoMovil: orden.tipo + " · " + orden.marca + " · Modelo " + orden.modelo,
-    clienteCedula: orden.nombre + " · C.C. " + formatearCedula(orden.cedula),
-    telefonoMovil: "Teléfono: " + formatearTelefono(orden.telefono),
-    ingresoTecnico: "Ingreso: " + formatearFechaCorta(orden.fechaIngreso) + " · Técnico: " + orden.tecnico,
-    costoMovil: "Costo de reparación: " + costo,
-  };
+// Textos del resumen que solo se ve en celular
+function agregarTextosDeCelular(valores, orden) {
+  valores.lineaEquipoMovil = orden.tipo + " · " + orden.marca + " · Modelo " + orden.modelo;
+  valores.clienteCedula = orden.nombre + " · C.C. " + formatearCedula(orden.cedula);
+  valores.telefonoMovil = "Teléfono: " + formatearTelefono(orden.telefono);
+  valores.ingresoTecnico = "Ingreso: " + formatearFechaCorta(orden.fechaIngreso) + " · Técnico: " + orden.tecnico;
+  valores.costoMovil = "Costo de reparación: " + formatearCosto(orden.costo) + " COP";
 }
 
 export function mostrarDetalle(datos) {
   const orden = datos.orden;
-  document.title = "Detalle de la orden #" + orden.numero + " | Factory System";
-  rellenarCampos({
+  let diagnostico = orden.diagnostico;
+  if (diagnostico === "") {
+    diagnostico = "Pendiente de diagnóstico.";
+  }
+
+  const valores = {
     numero: orden.numero,
     equipo: orden.marca + " " + orden.modelo,
     nombre: orden.nombre,
@@ -33,12 +35,15 @@ export function mostrarDetalle(datos) {
     tecnico: orden.tecnico,
     costo: formatearCosto(orden.costo) + " COP",
     falla: orden.falla,
-    diagnostico: orden.diagnostico === "" ? "Pendiente de diagnóstico." : orden.diagnostico,
+    diagnostico: diagnostico,
     autorDiagnostico: datos.autorDiagnostico,
     resumenFotos: datos.resumenFotos,
     notaHistorial: datos.notaHistorial,
-    ...crearTextosDeCelular(orden),
-  });
+  };
+  agregarTextosDeCelular(valores, orden);
+
+  document.title = "Detalle de la orden #" + orden.numero + " | Factory System";
+  rellenarCampos(valores);
   actualizarInsignias(buscarEstado(orden.estado));
   agregarNumeroAEnlaces(orden.numero);
   renderizarFotos(porId("lista-fotos"), orden.evidencias);

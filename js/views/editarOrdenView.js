@@ -1,4 +1,4 @@
-// VISTA (JS) de editar orden: lo compartido está en ordenFormView.js
+// VISTA (JS) de editar orden: lo que comparte con "nueva orden" está en ordenFormView.js
 import { porId, rellenarCampos, actualizarInsignias, mostrarContenidoDeOrden } from "../utils/dom.js";
 import { buscarEstado } from "../data/estados.js";
 import { renderizarFotos } from "./fotosView.js";
@@ -27,5 +27,9 @@ export function mostrarOrden(orden, resumenFotos) {
 
 // Indica cuántas fotos nuevas se van a subir (junto a las ya adjuntas)
 export function mostrarFotosNuevas(archivos) {
-  porId("fotos-nuevas").textContent = archivos.length > 0 ? " · " + archivos.length + " nueva(s) por subir" : "";
+  if (archivos.length > 0) {
+    porId("fotos-nuevas").textContent = " · " + archivos.length + " nueva(s) por subir";
+  } else {
+    porId("fotos-nuevas").textContent = "";
+  }
 }

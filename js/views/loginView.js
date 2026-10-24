@@ -24,11 +24,18 @@ export function mostrarErrores(errores) {
   mostrarError("clave", errores.clave);
 }
 
+// Muestra u oculta la contraseña cuando se pulsa el ojo
 export function alternarClave() {
   const estaOculta = elementos.clave.type === "password";
-  elementos.clave.type = estaOculta ? "text" : "password";
-  elementos.iconoVerClave.setAttribute("href", "../img/iconos.svg#" + (estaOculta ? "ojo" : "ojo-tachado"));
-  elementos.botonVerClave.setAttribute("aria-label", estaOculta ? "Ocultar contraseña" : "Mostrar contraseña");
+  if (estaOculta) {
+    elementos.clave.type = "text";
+    elementos.iconoVerClave.setAttribute("href", "../img/iconos.svg#ojo");
+    elementos.botonVerClave.setAttribute("aria-label", "Ocultar contraseña");
+  } else {
+    elementos.clave.type = "password";
+    elementos.iconoVerClave.setAttribute("href", "../img/iconos.svg#ojo-tachado");
+    elementos.botonVerClave.setAttribute("aria-label", "Mostrar contraseña");
+  }
 }
 
 export function rellenarUsuario(usuario) {
